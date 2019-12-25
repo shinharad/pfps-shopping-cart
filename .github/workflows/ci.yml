@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: olafurpg/setup-scala@v5
+      - name: Compile
+        run: sbt compile
+      - name: Unit Testing
+        run: sbt test
+#      - name: Starting up Postgres and Redis
+#        run: docker-compose up -d
+#      - name: Integration Testing
+#        run: sbt -J-Xms4G -J-Xmx4G test it:test
+#      - name: Shutting down Postgres and Redis
+#        run: docker-compose down
+

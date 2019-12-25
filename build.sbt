@@ -67,7 +67,13 @@ lazy val adapter = (project in file("modules/adapter"))
 lazy val app = (project in file("app"))
   .settings(
     name := s"$basename-app",
-//    libraryDependencies ++= Seq.empty
+    libraryDependencies ++= Seq(
+      http4sDsl,
+      http4sServer,
+      http4sClient,
+      http4sCirce,
+      http4sJwtAuth
+    )
   )
   .settings(coreSettings)
   .dependsOn(adapter)

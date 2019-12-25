@@ -2,7 +2,6 @@ import sbt._
 import sbt.Keys._
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 import Dependencies.Libraries._
-import Settings._
 
 object Settings {
 

@@ -7,6 +7,7 @@ import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.implicits._
 import org.http4s.server.blaze.BlazeServerBuilder
+//import shop.modules._
 
 object Main extends IOApp with Http4sDsl[IO] {
 

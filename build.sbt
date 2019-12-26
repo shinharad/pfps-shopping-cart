@@ -1,6 +1,4 @@
 import Dependencies.Libraries._
-import Settings._
-import ContainerSettings._
 
 val basename = "shopping-cart"
 
@@ -14,14 +12,14 @@ lazy val infrastructure = (project in file("modules/infrastructure"))
       javaxCrypto
     )
   )
-  .settings(coreSettings)
+  .settings(CoreSettings.settings)
 
 lazy val domain = (project in file("modules/domain"))
   .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-domain"
   )
-  .settings(coreSettings)
+  .settings(CoreSettings.settings)
   .dependsOn(infrastructure)
 
 lazy val application = (project in file("modules/application"))
@@ -29,7 +27,7 @@ lazy val application = (project in file("modules/application"))
   .settings(
     name := s"$basename-application"
   )
-  .settings(coreSettings)
+  .settings(CoreSettings.settings)
   .dependsOn(domain)
 
 lazy val adapter = (project in file("modules/adapter"))
@@ -53,18 +51,18 @@ lazy val adapter = (project in file("modules/adapter"))
       redis4catsLog4cats
     )
   )
-  .settings(coreSettings)
+  .settings(CoreSettings.settings)
   .dependsOn(application)
 
 lazy val app = (project in file("app"))
   .enablePlugins(DockerPlugin)
   .enablePlugins(AshScriptPlugin)
-  .settings(containerSettings)
+  .settings(ContainerSettings.settings)
   .settings(
     name := s"$basename-app",
     envVars in reStart := Map("SC_APP_ENV" -> "dev")
   )
-  .settings(coreSettings)
+  .settings(CoreSettings.settings)
   .dependsOn(adapter)
 
 lazy val root = (project in file("."))

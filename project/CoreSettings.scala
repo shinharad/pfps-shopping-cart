@@ -3,9 +3,9 @@ import sbt.Keys._
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 import Dependencies.Libraries._
 
-object Settings {
+object CoreSettings {
 
-  val coreSettings: Def.SettingsDefinition = Seq(
+  val settings: Def.SettingsDefinition = Seq(
     organization := "com.github.shinharad",
     scalaVersion := "2.13.1",
     scalacOptions ++= Seq(

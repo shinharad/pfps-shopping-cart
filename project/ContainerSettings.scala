@@ -5,7 +5,7 @@ import sbt._
 
 object ContainerSettings extends NativePackagerKeys with BatStartScriptKeys {
 
-  val containerSettings: Def.SettingsDefinition = Seq(
+  val settings: Def.SettingsDefinition = Seq(
     packageName in Docker := "shopping-cart",
     dockerBaseImage := "openjdk:8u201-jre-alpine3.9",
     dockerExposedPorts ++= Seq(8080),

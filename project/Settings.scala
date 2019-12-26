@@ -13,6 +13,7 @@ object Settings {
       "-deprecation",
       "-unchecked",
       "-encoding", "UTF-8",
+      "-Ymacro-annotations",
       "-Xlint"
 //      "-Xfatal-warnings",
 //      "-language:_",

@@ -1,6 +1,7 @@
 package shop
 
 import cats.effect._
+import cats.syntax.functor._
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import org.http4s._
 import org.http4s.dsl.Http4sDsl
@@ -12,14 +13,13 @@ object Main extends IOApp with Http4sDsl[IO] {
   implicit val logger = Slf4jLogger.getLogger[IO]
 
   override def run(args: List[String]): IO[ExitCode] =
-    for {
-      _ <- BlazeServerBuilder[IO]
-            .bindHttp(8080, "localhost")
-            .withHttpApp(service)
-            .serve
-            .compile
-            .drain
-    } yield ExitCode.Success
+    BlazeServerBuilder[IO]
+      .bindHttp(8080, "localhost")
+      .withHttpApp(service)
+      .serve
+      .compile
+      .drain
+      .as(ExitCode.Success)
 
   // dummy
   val service = HttpRoutes

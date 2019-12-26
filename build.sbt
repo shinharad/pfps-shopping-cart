@@ -3,20 +3,8 @@ import Settings._
 
 val basename = "shopping-cart"
 
-lazy val root = (project in file("."))
-  .settings(
-    name := basename
-  )
-//  .settings(coreSettings)
-  .aggregate(
-    infrastructure,
-    domain,
-    application,
-    adapter,
-    app
-  )
-
 lazy val infrastructure = (project in file("modules/infrastructure"))
+//  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-infrastructure",
     libraryDependencies ++= Seq(
@@ -26,6 +14,7 @@ lazy val infrastructure = (project in file("modules/infrastructure"))
   .settings(coreSettings)
 
 lazy val domain = (project in file("modules/domain"))
+//  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-domain",
 //    libraryDependencies ++= Seq.empty
@@ -34,6 +23,7 @@ lazy val domain = (project in file("modules/domain"))
   .dependsOn(infrastructure)
 
 lazy val application = (project in file("modules/application"))
+//  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-application",
 //    libraryDependencies ++= Seq.empty
@@ -42,6 +32,7 @@ lazy val application = (project in file("modules/application"))
   .dependsOn(domain)
 
 lazy val adapter = (project in file("modules/adapter"))
+//  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-adapter",
     libraryDependencies ++= Seq(
@@ -65,8 +56,11 @@ lazy val adapter = (project in file("modules/adapter"))
   .dependsOn(application)
 
 lazy val app = (project in file("app"))
+//  .enablePlugins(RevolverPlugin)
+//  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-app",
+//    mainClass := Some("shop.Main"),
     libraryDependencies ++= Seq(
       http4sDsl,
       http4sServer,
@@ -77,3 +71,19 @@ lazy val app = (project in file("app"))
   )
   .settings(coreSettings)
   .dependsOn(adapter)
+
+lazy val root = (project in file("."))
+  //  .disablePlugins(RevolverPlugin)
+  .settings(
+    name := basename,
+//    mainClass := Some("shop.Main"),
+  )
+  .settings(coreSettings)
+  .aggregate(
+    infrastructure,
+    domain,
+    application,
+    adapter,
+    app
+  )
+

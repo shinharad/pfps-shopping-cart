@@ -7,7 +7,7 @@ PostgreSQL:
     - DEBUG=false
     - POSTGRES_DB=store
   volumes:
-    - ./modules/core/src/main/resources/tables.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./app/src/main/resources/tables.sql:/docker-entrypoint-initdb.d/init.sql
 
 #Redis:
 #  restart: always

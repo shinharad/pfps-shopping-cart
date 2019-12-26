@@ -19,8 +19,7 @@ lazy val infrastructure = (project in file("modules/infrastructure"))
 lazy val domain = (project in file("modules/domain"))
   .disablePlugins(RevolverPlugin)
   .settings(
-    name := s"$basename-domain",
-//    libraryDependencies ++= Seq.empty
+    name := s"$basename-domain"
   )
   .settings(coreSettings)
   .dependsOn(infrastructure)
@@ -28,8 +27,7 @@ lazy val domain = (project in file("modules/domain"))
 lazy val application = (project in file("modules/application"))
   .disablePlugins(RevolverPlugin)
   .settings(
-    name := s"$basename-application",
-//    libraryDependencies ++= Seq.empty
+    name := s"$basename-application"
   )
   .settings(coreSettings)
   .dependsOn(domain)
@@ -59,9 +57,9 @@ lazy val adapter = (project in file("modules/adapter"))
   .dependsOn(application)
 
 lazy val app = (project in file("app"))
-//  .enablePlugins(DockerPlugin)
-//  .enablePlugins(AshScriptPlugin)
-//  .settings(containerSettings)
+  .enablePlugins(DockerPlugin)
+  .enablePlugins(AshScriptPlugin)
+  .settings(containerSettings)
   .settings(
     name := s"$basename-app",
     envVars in reStart := Map("SC_APP_ENV" -> "dev")
@@ -71,13 +69,9 @@ lazy val app = (project in file("app"))
 
 lazy val root = (project in file("."))
   .disablePlugins(RevolverPlugin)
-  .enablePlugins(DockerPlugin)
-  .enablePlugins(AshScriptPlugin)
-  .settings(containerSettings)
   .settings(
     name := basename
   )
-  //  .settings(coreSettings)
   .aggregate(
     infrastructure,
     domain,

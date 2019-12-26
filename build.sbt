@@ -1,7 +1,10 @@
 import Dependencies.Libraries._
 import Settings._
+import ContainerSettings._
 
 val basename = "shopping-cart"
+
+ThisBuild / version := "0.1"
 
 lazy val infrastructure = (project in file("modules/infrastructure"))
   .disablePlugins(RevolverPlugin)
@@ -56,6 +59,9 @@ lazy val adapter = (project in file("modules/adapter"))
   .dependsOn(application)
 
 lazy val app = (project in file("app"))
+//  .enablePlugins(DockerPlugin)
+//  .enablePlugins(AshScriptPlugin)
+//  .settings(containerSettings)
   .settings(
     name := s"$basename-app",
     envVars in reStart := Map("SC_APP_ENV" -> "dev")
@@ -65,6 +71,9 @@ lazy val app = (project in file("app"))
 
 lazy val root = (project in file("."))
   .disablePlugins(RevolverPlugin)
+  .enablePlugins(DockerPlugin)
+  .enablePlugins(AshScriptPlugin)
+  .settings(containerSettings)
   .settings(
     name := basename
   )
@@ -76,4 +85,5 @@ lazy val root = (project in file("."))
     adapter,
     app
   )
+
 

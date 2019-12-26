@@ -6,7 +6,8 @@ val basename = "shopping-cart"
 lazy val root = (project in file("."))
   //  .disablePlugins(RevolverPlugin)
   .settings(
-    name := basename
+    name := basename,
+    envVars in reStart := Map("SC_APP_ENV" -> "dev")
   )
   //  .settings(coreSettings)
   .aggregate(
@@ -74,6 +75,7 @@ lazy val app = (project in file("app"))
 //  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-app",
+    envVars in reStart := Map("SC_APP_ENV" -> "dev"),
 //    mainClass := Some("shop.Main"),
     libraryDependencies ++= Seq(
       http4sDsl,

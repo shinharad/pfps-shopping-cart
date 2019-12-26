@@ -35,6 +35,7 @@ object Settings {
 //      "-Ywarn-unused-import"
     ),
     scalafmtOnCompile := true,
+    resolvers += Resolver.sonatypeRepo("snapshots"),
     libraryDependencies ++= Seq(
       compilerPlugin(betterMonadicFor),
       compilerPlugin(kindProjector),

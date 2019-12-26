@@ -3,6 +3,20 @@ import Settings._
 
 val basename = "shopping-cart"
 
+lazy val root = (project in file("."))
+  //  .disablePlugins(RevolverPlugin)
+  .settings(
+    name := basename
+  )
+  //  .settings(coreSettings)
+  .aggregate(
+    infrastructure,
+    domain,
+    application,
+    adapter,
+    app
+  )
+
 lazy val infrastructure = (project in file("modules/infrastructure"))
 //  .disablePlugins(RevolverPlugin)
   .settings(
@@ -71,19 +85,4 @@ lazy val app = (project in file("app"))
   )
   .settings(coreSettings)
   .dependsOn(adapter)
-
-lazy val root = (project in file("."))
-  //  .disablePlugins(RevolverPlugin)
-  .settings(
-    name := basename,
-//    mainClass := Some("shop.Main"),
-  )
-  .settings(coreSettings)
-  .aggregate(
-    infrastructure,
-    domain,
-    application,
-    adapter,
-    app
-  )
 

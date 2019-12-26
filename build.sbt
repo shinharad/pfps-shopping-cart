@@ -4,7 +4,7 @@ import Settings._
 val basename = "shopping-cart"
 
 lazy val infrastructure = (project in file("modules/infrastructure"))
-//  .disablePlugins(RevolverPlugin)
+  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-infrastructure",
     libraryDependencies ++= Seq(
@@ -14,7 +14,7 @@ lazy val infrastructure = (project in file("modules/infrastructure"))
   .settings(coreSettings)
 
 lazy val domain = (project in file("modules/domain"))
-//  .disablePlugins(RevolverPlugin)
+  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-domain",
 //    libraryDependencies ++= Seq.empty
@@ -23,7 +23,7 @@ lazy val domain = (project in file("modules/domain"))
   .dependsOn(infrastructure)
 
 lazy val application = (project in file("modules/application"))
-//  .disablePlugins(RevolverPlugin)
+  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-application",
 //    libraryDependencies ++= Seq.empty
@@ -32,7 +32,7 @@ lazy val application = (project in file("modules/application"))
   .dependsOn(domain)
 
 lazy val adapter = (project in file("modules/adapter"))
-//  .disablePlugins(RevolverPlugin)
+  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-adapter",
     libraryDependencies ++= Seq(
@@ -56,25 +56,15 @@ lazy val adapter = (project in file("modules/adapter"))
   .dependsOn(application)
 
 lazy val app = (project in file("app"))
-//  .enablePlugins(RevolverPlugin)
-//  .disablePlugins(RevolverPlugin)
   .settings(
     name := s"$basename-app",
-    envVars in reStart := Map("SC_APP_ENV" -> "dev"),
-//    mainClass := Some("shop.Main"),
-    libraryDependencies ++= Seq(
-      http4sDsl,
-      http4sServer,
-      http4sClient,
-      http4sCirce,
-      http4sJwtAuth
-    )
+    envVars in reStart := Map("SC_APP_ENV" -> "dev")
   )
   .settings(coreSettings)
   .dependsOn(adapter)
 
 lazy val root = (project in file("."))
-  //  .disablePlugins(RevolverPlugin)
+  .disablePlugins(RevolverPlugin)
   .settings(
     name := basename
   )

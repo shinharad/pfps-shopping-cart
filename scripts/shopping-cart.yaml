@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopping-cart
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shopping-cart
+  template:
+    metadata:
+      labels:
+        app: shopping-cart
+    spec:
+      containers:
+        - name: shopping-cart
+          image: shopping-cart:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DEBUG
+              value: "false"
+            - name: SC_ACCESS_TOKEN_SECRET_KEY
+              value: "5h0pp1ng_k4rt"
+            - name: SC_JWT_SECRET_KEY
+              value: "-*5h0pp1ng_k4rt*-"
+            - name: SC_JWT_CLAIM
+              value: "{004b4457-71c3-4439-a1b2-03820263b59c}"
+            - name: SC_ADMIN_USER_TOKEN
+              value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ezA0YjQ0NTctNzFjMy00NDM5LWExYjItMDM4MjAyNjNiNTl9.mMC4eiPl7huiAO3GdORwKnqJrf96xKPoojQdZtrTbP4"
+            - name: SC_PASSWORD_SALT
+              value: "06!grsnxXG0d*Pj496p6fuA*o"
+            - name: SC_APP_ENV
+              value: "dev"

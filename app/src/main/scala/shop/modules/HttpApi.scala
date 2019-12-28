@@ -38,10 +38,11 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   private val healthRoutes   = new HealthRoutes[F](repos.healthCheck).routes
   private val brandRoutes    = new BrandRoutes[F](repos.brands).routes
   private val categoryRoutes = new CategoryRoutes[F](repos.categories).routes
+  private val itemRoutes     = new ItemRoutes[F](repos.items).routes
 
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
-    healthRoutes <+> brandRoutes <+> categoryRoutes
+    healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes
 
   private val routes: HttpRoutes[F] = Router(
     version.v1 -> openRoutes

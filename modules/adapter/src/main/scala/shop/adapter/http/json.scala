@@ -6,6 +6,7 @@ import io.circe._
 import io.circe.generic.semiauto._
 import shop.domain.Categories.Category
 import shop.domain.HealthCheck._
+import shop.domain.Items.Item
 //import io.circe.refined._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
@@ -60,9 +61,9 @@ object json {
   implicit val moneyDecoder: Decoder[Money] = Decoder[BigDecimal].map(USD.apply)
   implicit val moneyEncoder: Encoder[Money] = Encoder[BigDecimal].contramap(_.amount)
 
-  //  implicit val itemDecoder: Decoder[Item] = deriveDecoder[Item]
-  //  implicit val itemEncoder: Encoder[Item] = deriveEncoder[Item]
-  //
+  implicit val itemDecoder: Decoder[Item] = deriveDecoder[Item]
+  implicit val itemEncoder: Encoder[Item] = deriveEncoder[Item]
+
   //  implicit val createItemDecoder: Decoder[CreateItemParam] = deriveDecoder[CreateItemParam]
   //  implicit val updateItemDecoder: Decoder[UpdateItemParam] = deriveDecoder[UpdateItemParam]
 

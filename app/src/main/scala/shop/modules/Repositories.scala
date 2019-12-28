@@ -3,7 +3,7 @@ package shop.modules
 import cats.Parallel
 import cats.effect._
 import cats.implicits._
-import shop.domain.{ Brands, Categories, HealthCheck }
+import shop.domain.{ Brands, Categories, HealthCheck, Items }
 //import dev.profunktor.redis4cats.algebra.RedisCommands
 import shop.adapter.persistence._
 //import shop.config.data._
@@ -16,13 +16,15 @@ object Repositories {
     for {
       brands <- LiveBrands.make[F](sessionPool)
       categories <- LiveCategories.make[F](sessionPool)
+      items <- LiveItems.make[F](sessionPool)
       health <- LiveHealthCheck.make[F](sessionPool)
-    } yield new Repositories(brands, categories, health)
+    } yield new Repositories(brands, categories, items, health)
 
 }
 
 final class Repositories[F[_]] private (
     val brands: Brands[F],
     val categories: Categories[F],
+    val items: Items[F],
     val healthCheck: HealthCheck[F]
 )

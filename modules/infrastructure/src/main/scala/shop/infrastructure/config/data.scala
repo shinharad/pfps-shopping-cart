@@ -1,6 +1,5 @@
-package shop.config
+package shop.infrastructure.config
 
-//import ciris.Secret
 import ciris.Secret
 import eu.timepit.refined.types.net.UserPortNumber
 import eu.timepit.refined.types.numeric.PosInt
@@ -8,9 +7,6 @@ import eu.timepit.refined.types.string.NonEmptyString
 import io.estatico.newtype.macros.newtype
 
 import scala.concurrent.duration.FiniteDuration
-//import io.estatico.newtype.macros.newtype
-
-//import scala.concurrent.duration.FiniteDuration
 
 object data {
 

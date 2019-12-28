@@ -60,7 +60,14 @@ lazy val app = (project in file("app"))
   .settings(ContainerSettings.settings)
   .settings(
     name := s"$basename-app",
-    envVars in reStart := Map("SC_APP_ENV" -> "dev")
+    envVars in reStart := Map(
+      "SC_APP_ENV" -> "local",
+      "SC_ACCESS_TOKEN_SECRET_KEY" -> "5h0pp1ng_k4rt",
+      "SC_JWT_SECRET_KEY" -> "-*5h0pp1ng_k4rt*-",
+      "SC_JWT_CLAIM" -> "{004b4457-71c3-4439-a1b2-03820263b59c}",
+      "SC_ADMIN_USER_TOKEN" -> "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ezA0YjQ0NTctNzFjMy00NDM5LWExYjItMDM4MjAyNjNiNTl9.mMC4eiPl7huiAO3GdORwKnqJrf96xKPoojQdZtrTbP4",
+      "SC_PASSWORD_SALT" -> "06!grsnxXG0d*Pj496p6fuA*o",
+    )
   )
   .settings(CoreSettings.settings)
   .dependsOn(adapter)

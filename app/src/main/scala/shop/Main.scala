@@ -12,7 +12,7 @@ object Main extends IOApp {
   implicit val logger = Slf4jLogger.getLogger[IO]
 
   override def run(args: List[String]): IO[ExitCode] =
-    config.loader[IO].flatMap { cfg =>
+    ConfigLoader[IO].flatMap { cfg =>
       Logger[IO].info(s"Loaded config $cfg") *>
         AppResources.make[IO](cfg).use { res =>
           for {

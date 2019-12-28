@@ -1,23 +1,29 @@
-package shop.config
+package shop
 
 import cats.effect._
 import cats.implicits._
 import ciris._
 import ciris.refined._
-import environments._
-import environments.AppEnvironment._
 import eu.timepit.refined.auto._
 import eu.timepit.refined.cats._
 import eu.timepit.refined.types.string.NonEmptyString
-import scala.concurrent.duration._
-import shop.config.data._
 
-object loader {
+import scala.concurrent.duration._
+import shop.infrastructure.config.data._
+import shop.infrastructure.config.environments.AppEnvironment._
+import shop.infrastructure.config.environments._
+
+object ConfigLoader {
 
   def apply[F[_]: Async: ContextShift]: F[AppConfig] =
     env("SC_APP_ENV")
       .as[AppEnvironment]
       .flatMap {
+        case Local =>
+          default(
+            redisUri = RedisURI("redis://localhost"),
+            paymentUri = PaymentURI("http://10.123.154.10/api")
+          )
         case Dev =>
           default(
             redisUri = RedisURI("redis://localhost"),

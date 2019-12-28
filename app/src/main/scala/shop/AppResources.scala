@@ -2,7 +2,7 @@ package shop
 
 import cats.effect._
 //import cats.implicits._ // TODO
-import config.data._
+import shop.infrastructure.config.data._
 //import dev.profunktor.redis4cats.algebra.RedisCommands
 //import dev.profunktor.redis4cats.connection.{ RedisClient, RedisURI }
 //import dev.profunktor.redis4cats.domain.RedisCodec

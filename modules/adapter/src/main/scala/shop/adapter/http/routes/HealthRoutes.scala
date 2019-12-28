@@ -4,8 +4,8 @@ import cats.effect.Sync
 import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
-import shop.domain.HealthCheck
 import shop.adapter.http.json._
+import shop.domain.healthcheck.HealthCheck
 
 final class HealthRoutes[F[_]: Sync](
     healthCheck: HealthCheck[F]

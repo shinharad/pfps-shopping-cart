@@ -3,12 +3,12 @@ package shop.modules
 import cats.Parallel
 import cats.effect._
 import cats.implicits._
+import shop.domain.brand.Brands
+import shop.domain.healthcheck.HealthCheck
 //import dev.profunktor.redis4cats.algebra.RedisCommands
-import shop.domain._
 import shop.adapter.persistence._
 //import shop.config.data._
 import skunk._
-import shop.domain.Brands
 
 object Repositories {
   def make[F[_]: Concurrent: Parallel: Timer](

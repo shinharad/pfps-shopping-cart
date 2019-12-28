@@ -14,8 +14,7 @@ object CoreSettings {
       "-unchecked",
       "-encoding", "UTF-8",
       "-Ymacro-annotations",
-      "-Xlint",
-      "-Ywarn-unused"
+      "-Xlint"
     ),
     scalafmtOnCompile := true,
     resolvers += Resolver.sonatypeRepo("snapshots"),

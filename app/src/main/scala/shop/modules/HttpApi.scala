@@ -2,7 +2,7 @@ package shop.modules
 
 import cats.effect._
 import org.http4s.server.middleware._
-//import cats.implicits._
+import cats.implicits._
 //import dev.profunktor.auth.JwtAuthMiddleware
 //import dev.profunktor.auth.jwt.JwtToken
 import org.http4s._
@@ -35,11 +35,12 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
 ) {
 
   // Open routes
-  private val brandRoutes = new BrandRoutes[F](repos.brands).routes
+  private val healthRoutes = new HealthRoutes[F](repos.healthCheck).routes
+  private val brandRoutes  = new BrandRoutes[F](repos.brands).routes
 
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
-    brandRoutes
+    healthRoutes <+> brandRoutes
 
   private val routes: HttpRoutes[F] = Router(
     version.v1 -> openRoutes

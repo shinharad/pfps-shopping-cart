@@ -4,6 +4,7 @@ import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
 import io.circe.generic.semiauto._
+import shop.domain.HealthCheck.AppStatus
 //import io.circe.refined._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
@@ -82,9 +83,9 @@ object json {
 //
 //  implicit val userDecoder: Decoder[User] = deriveDecoder[User]
 //  implicit val userEncoder: Encoder[User] = deriveEncoder[User]
-//
-//  implicit val appStatusEncoder: Encoder[AppStatus] = deriveEncoder[AppStatus]
-//
+
+  implicit val appStatusEncoder: Encoder[AppStatus] = deriveEncoder[AppStatus]
+
 //  implicit val createUserDecoder: Decoder[CreateUser] = deriveDecoder[CreateUser]
 //
 //  implicit val loginUserDecoder: Decoder[LoginUser] = deriveDecoder[LoginUser]

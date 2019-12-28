@@ -16,10 +16,12 @@ object Repositories {
   ): F[Repositories[F]] =
     for {
       brands <- LiveBrands.make[F](sessionPool)
-    } yield new Repositories(brands)
+      health <- LiveHealthCheck.make[F](sessionPool)
+    } yield new Repositories(brands, health)
 
 }
 
 final class Repositories[F[_]] private (
-    val brands: Brands[F]
+    val brands: Brands[F],
+    val healthCheck: HealthCheck[F]
 )

@@ -3,7 +3,7 @@ package shop.infrastructure
 import cats.{ ApplicativeError, MonadError }
 import cats.effect.Bracket
 
-package object effect {
+object error {
 
   type BracketThrow[F[_]] = Bracket[F, Throwable]
 

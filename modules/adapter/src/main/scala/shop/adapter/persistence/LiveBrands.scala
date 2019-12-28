@@ -7,7 +7,7 @@ import shop.adapter.persistence.skunkx._
 import shop.domain.Brands
 import shop.domain.Brands._
 import shop.infrastructure._
-import shop.infrastructure.effect._
+import shop.infrastructure.error.BracketThrow
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

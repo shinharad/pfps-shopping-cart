@@ -5,7 +5,7 @@ import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
 import shop.adapter.http.json._
-import shop.domain.HealthCheck
+import shop.application.HealthCheck
 
 final class HealthRoutes[F[_]: Sync](
     healthCheck: HealthCheck[F]

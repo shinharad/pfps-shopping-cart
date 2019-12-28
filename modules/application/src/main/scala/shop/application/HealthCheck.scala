@@ -1,4 +1,4 @@
-package shop.domain
+package shop.application
 
 import io.estatico.newtype.macros.newtype
 

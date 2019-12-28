@@ -6,7 +6,6 @@ import io.circe._
 import io.circe.generic.semiauto._
 import shop.adapter.http.request.users.User
 import shop.domain.Categories.Category
-import shop.domain.HealthCheck._
 import shop.domain.Items.Item
 import io.circe.refined._
 import io.estatico.newtype.Coercible
@@ -14,6 +13,7 @@ import io.estatico.newtype.ops._
 import org.http4s.circe._
 import org.http4s._
 import shop.adapter.http.request.brand.BrandParam
+import shop.application.HealthCheck.AppStatus
 import shop.domain.Brands._
 import squants.market._
 

@@ -11,7 +11,7 @@ import io.estatico.newtype.ops._
 import org.http4s.{ EntityDecoder, EntityEncoder }
 import org.http4s.circe.{ jsonEncoderOf, jsonOf }
 //import shop.domain.auth._
-import shop.domain.brand._
+import shop.domain.Brands._
 //import shop.domain.cart._
 //import shop.domain.category._
 //import shop.domain.checkout._

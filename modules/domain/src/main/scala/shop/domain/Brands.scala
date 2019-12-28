@@ -3,9 +3,9 @@ package shop.domain
 import java.util.UUID
 
 import io.estatico.newtype.macros.newtype
-import shop.domain.brand._
+import shop.domain.Brands._
 
-object brand {
+object Brands {
 
   @newtype case class BrandId(value: UUID)
   @newtype case class BrandName(value: String)

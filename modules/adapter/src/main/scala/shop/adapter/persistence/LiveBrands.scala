@@ -5,7 +5,7 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import shop.adapter.persistence.skunkx._
 import shop.domain.Brands
-import shop.domain.brand._
+import shop.domain.Brands._
 import shop.infrastructure._
 import shop.infrastructure.effect._
 import skunk._

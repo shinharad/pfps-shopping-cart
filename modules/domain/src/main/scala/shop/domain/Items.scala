@@ -34,6 +34,7 @@ object Items {
       category: Category
   )
 
+  // TODO routes
   // ----- Create item ------
   @newtype case class ItemNameParam(value: NonEmptyString)
   @newtype case class ItemDescriptionParam(value: NonEmptyString)

@@ -4,14 +4,14 @@ import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
 import io.circe.generic.semiauto._
-import shop.domain.healthcheck.data._
+import shop.domain.HealthCheck._
 //import io.circe.refined._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
 import org.http4s.{ EntityDecoder, EntityEncoder }
 import org.http4s.circe.{ jsonEncoderOf, jsonOf }
 //import shop.domain.auth._
-import shop.domain.brand.data._
+import shop.domain.Brands._
 //import shop.domain.cart._
 //import shop.domain.category._
 //import shop.domain.checkout._

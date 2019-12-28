@@ -1,13 +1,13 @@
-package shop.domain.healthcheck
+package shop.domain
 
 import io.estatico.newtype.macros.newtype
 
 trait HealthCheck[F[_]] {
-  import data._
+  import HealthCheck._
   def status: F[AppStatus]
 }
 
-object data {
+object HealthCheck {
 
   //  @newtype case class RedisStatus(value: Boolean)
   @newtype case class PostgresStatus(value: Boolean)

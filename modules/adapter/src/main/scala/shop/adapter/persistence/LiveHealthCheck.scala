@@ -4,9 +4,9 @@ import cats.Parallel
 import cats.effect._
 import cats.effect.implicits._
 import cats.implicits._
-import shop.domain.healthcheck.HealthCheck
+import shop.domain.HealthCheck
 //import dev.profunktor.redis4cats.algebra.RedisCommands
-import shop.domain.healthcheck.data._
+import shop.domain.HealthCheck._
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

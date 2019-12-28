@@ -3,8 +3,7 @@ package shop.modules
 import cats.Parallel
 import cats.effect._
 import cats.implicits._
-import shop.domain.brand.Brands
-import shop.domain.healthcheck.HealthCheck
+import shop.domain.{ Brands, HealthCheck }
 //import dev.profunktor.redis4cats.algebra.RedisCommands
 import shop.adapter.persistence._
 //import shop.config.data._

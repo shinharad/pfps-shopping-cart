@@ -4,7 +4,7 @@ import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
 import io.circe.generic.semiauto._
-import shop.adapter.http.param.users.User
+import shop.adapter.http.request.users.User
 import shop.domain.Categories.Category
 import shop.domain.HealthCheck._
 import shop.domain.Items.Item
@@ -13,7 +13,7 @@ import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
 import org.http4s.circe._
 import org.http4s._
-import shop.adapter.http.param.brand.BrandParam
+import shop.adapter.http.request.brand.BrandParam
 import shop.domain.Brands._
 import squants.market._
 

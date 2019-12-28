@@ -1,4 +1,4 @@
-package shop.adapter.http.param
+package shop.adapter.http.request
 
 import eu.timepit.refined.types.string.NonEmptyString
 import io.estatico.newtype.macros.newtype

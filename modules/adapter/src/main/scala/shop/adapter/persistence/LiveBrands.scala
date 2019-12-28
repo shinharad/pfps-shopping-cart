@@ -48,12 +48,6 @@ private object BrandQueries {
       case i ~ n => Brand(i, n)
     }(b => b.id ~ b.name)
 
-  // 自前でコーデックする場合
-  val codec2: Codec[Brand] =
-    (uuid ~ varchar).imap {
-      case i ~ n => Brand(BrandId(i), BrandName(n))
-    }(b => b.id.value ~ b.name.value)
-
   val selectAll: Query[Void, Brand] =
     sql"""
          SELECT * FROM brands

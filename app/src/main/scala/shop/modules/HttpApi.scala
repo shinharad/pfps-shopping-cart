@@ -1,13 +1,13 @@
 package shop.modules
 
 import cats.effect._
+import org.http4s.server.middleware._
 //import cats.implicits._
 //import dev.profunktor.auth.JwtAuthMiddleware
 //import dev.profunktor.auth.jwt.JwtToken
 import org.http4s._
 import org.http4s.implicits._
 import org.http4s.server.Router
-//import org.http4s.server.middleware._
 //import pdi.jwt._
 import shop.adapter.http.routes._
 //import shop.http.auth.users._
@@ -16,7 +16,8 @@ import shop.adapter.http.routes._
 //import shop.http.routes.auth._
 //import shop.http.routes.secured._
 
-//import scala.concurrent.duration._
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 object HttpApi {
   def make[F[_]: Concurrent: Timer](
@@ -44,6 +45,24 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
     version.v1 -> openRoutes
   )
 
-  val httpApp: HttpApp[F] = routes.orNotFound
+  private val middleware: HttpRoutes[F] => HttpRoutes[F] = {
+    { http: HttpRoutes[F] =>
+      AutoSlash(http)
+    } andThen { http: HttpRoutes[F] =>
+      CORS(http, CORS.DefaultCORSConfig)
+    } andThen { http: HttpRoutes[F] =>
+      Timeout(60 seconds)(http)
+    }
+  }
+
+  private val loggers: HttpApp[F] => HttpApp[F] = {
+    { http: HttpApp[F] =>
+      RequestLogger.httpApp(true, true)(http)
+    } andThen { http: HttpApp[F] =>
+      ResponseLogger.httpApp(true, true)(http)
+    }
+  }
+
+  val httpApp: HttpApp[F] = loggers(middleware(routes).orNotFound)
 
 }

@@ -4,18 +4,17 @@ import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
 import io.circe.generic.semiauto._
+import shop.domain.Categories.Category
 import shop.domain.HealthCheck._
 //import io.circe.refined._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
-import org.http4s.{ EntityDecoder, EntityEncoder }
 import org.http4s.circe.{ jsonEncoderOf, jsonOf }
+import org.http4s.{ EntityDecoder, EntityEncoder }
 //import shop.domain.auth._
 import shop.domain.Brands._
 //import shop.domain.cart._
-//import shop.domain.category._
 //import shop.domain.checkout._
-//import shop.domain.healthcheck._
 //import shop.domain.item._
 //import shop.domain.order._
 //import shop.infrastructure.refined._
@@ -25,14 +24,15 @@ import squants.market._
 object json {
 
   implicit def jsonDecoder[F[_]: Sync, A: Decoder]: EntityDecoder[F, A] = jsonOf[F, A]
+
   implicit def jsonEncoder[F[_]: Sync, A: Encoder]: EntityEncoder[F, A] = jsonEncoderOf[F, A]
 
   // ----- Overriding some Coercible codecs ----
-//  implicit val brandParamDecoder: Decoder[BrandParam] =
-//    Decoder.forProduct1("name")(BrandParam.apply)
-//
-//  implicit val categoryParamDecoder: Decoder[CategoryParam] =
-//    Decoder.forProduct1("name")(CategoryParam.apply)
+  //  implicit val brandParamDecoder: Decoder[BrandParam] =
+  //    Decoder.forProduct1("name")(BrandParam.apply)
+  //
+  //  implicit val categoryParamDecoder: Decoder[CategoryParam] =
+  //    Decoder.forProduct1("name")(CategoryParam.apply)
 
   // ----- Coercible codecs -----
   // @newtypeを使用する場合はこれが必要
@@ -54,40 +54,40 @@ object json {
   implicit val brandDecoder: Decoder[Brand] = deriveDecoder[Brand]
   implicit val brandEncoder: Encoder[Brand] = deriveEncoder[Brand]
 
-//  implicit val categoryDecoder: Decoder[Category] = deriveDecoder[Category]
-//  implicit val categoryEncoder: Encoder[Category] = deriveEncoder[Category]
+  implicit val categoryDecoder: Decoder[Category] = deriveDecoder[Category]
+  implicit val categoryEncoder: Encoder[Category] = deriveEncoder[Category]
 
   implicit val moneyDecoder: Decoder[Money] = Decoder[BigDecimal].map(USD.apply)
   implicit val moneyEncoder: Encoder[Money] = Encoder[BigDecimal].contramap(_.amount)
 
-//  implicit val itemDecoder: Decoder[Item] = deriveDecoder[Item]
-//  implicit val itemEncoder: Encoder[Item] = deriveEncoder[Item]
-//
-//  implicit val createItemDecoder: Decoder[CreateItemParam] = deriveDecoder[CreateItemParam]
-//  implicit val updateItemDecoder: Decoder[UpdateItemParam] = deriveDecoder[UpdateItemParam]
+  //  implicit val itemDecoder: Decoder[Item] = deriveDecoder[Item]
+  //  implicit val itemEncoder: Encoder[Item] = deriveEncoder[Item]
+  //
+  //  implicit val createItemDecoder: Decoder[CreateItemParam] = deriveDecoder[CreateItemParam]
+  //  implicit val updateItemDecoder: Decoder[UpdateItemParam] = deriveDecoder[UpdateItemParam]
 
-//  implicit val cartItemDecoder: Decoder[CartItem] = deriveDecoder[CartItem]
-//  implicit val cartItemEncoder: Encoder[CartItem] = deriveEncoder[CartItem]
-//
-//  implicit val cartTotalEncoder: Encoder[CartTotal] = deriveEncoder[CartTotal]
-//
-//  implicit val orderEncoder: Encoder[Order] = deriveEncoder[Order]
-//
-//  implicit val cardDecoder: Decoder[Card] = deriveDecoder[Card]
+  //  implicit val cartItemDecoder: Decoder[CartItem] = deriveDecoder[CartItem]
+  //  implicit val cartItemEncoder: Encoder[CartItem] = deriveEncoder[CartItem]
+  //
+  //  implicit val cartTotalEncoder: Encoder[CartTotal] = deriveEncoder[CartTotal]
+  //
+  //  implicit val orderEncoder: Encoder[Order] = deriveEncoder[Order]
+  //
+  //  implicit val cardDecoder: Decoder[Card] = deriveDecoder[Card]
 
   // 手動のコーデック
   implicit val tokenEncoder: Encoder[JwtToken] = Encoder.forProduct1("access_token")(_.value)
 
-//  implicit val cartEncoder: Encoder[Cart] = Encoder.forProduct1("items")(_.items)
-//  implicit val cartDecoder: Decoder[Cart] = Decoder.forProduct1("items")(Cart.apply)
-//
-//  implicit val userDecoder: Decoder[User] = deriveDecoder[User]
-//  implicit val userEncoder: Encoder[User] = deriveEncoder[User]
+  //  implicit val cartEncoder: Encoder[Cart] = Encoder.forProduct1("items")(_.items)
+  //  implicit val cartDecoder: Decoder[Cart] = Decoder.forProduct1("items")(Cart.apply)
+  //
+  //  implicit val userDecoder: Decoder[User] = deriveDecoder[User]
+  //  implicit val userEncoder: Encoder[User] = deriveEncoder[User]
 
   implicit val appStatusEncoder: Encoder[AppStatus] = deriveEncoder[AppStatus]
 
-//  implicit val createUserDecoder: Decoder[CreateUser] = deriveDecoder[CreateUser]
-//
-//  implicit val loginUserDecoder: Decoder[LoginUser] = deriveDecoder[LoginUser]
+  //  implicit val createUserDecoder: Decoder[CreateUser] = deriveDecoder[CreateUser]
+  //
+  //  implicit val loginUserDecoder: Decoder[LoginUser] = deriveDecoder[LoginUser]
 
 }

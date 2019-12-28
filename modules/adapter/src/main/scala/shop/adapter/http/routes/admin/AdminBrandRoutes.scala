@@ -4,11 +4,11 @@ import cats.effect.Sync
 import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server._
-import shop.adapter.http.routes.ItemRoutes.BrandParam
 import shop.domain.Brands
 import shop.adapter.http.decoder._
 import shop.adapter.http.param.users._
 import shop.adapter.http.json._
+import shop.adapter.http.param.brand.BrandParam
 
 final class AdminBrandRoutes[F[_]: Sync](
     brands: Brands[F]

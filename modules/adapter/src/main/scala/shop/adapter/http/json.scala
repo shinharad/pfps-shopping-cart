@@ -4,22 +4,17 @@ import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
 import io.circe.generic.semiauto._
+import shop.adapter.http.param.users.User
+import shop.adapter.http.routes.ItemRoutes.BrandParam
 import shop.domain.Categories.Category
 import shop.domain.HealthCheck._
 import shop.domain.Items.Item
-//import io.circe.refined._
+import io.circe.refined._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
-import org.http4s.circe.{ jsonEncoderOf, jsonOf }
-import org.http4s.{ EntityDecoder, EntityEncoder }
-//import shop.domain.auth._
+import org.http4s.circe._
+import org.http4s._
 import shop.domain.Brands._
-//import shop.domain.cart._
-//import shop.domain.checkout._
-//import shop.domain.item._
-//import shop.domain.order._
-//import shop.infrastructure.refined._
-//import shop.http.auth.users._
 import squants.market._
 
 object json {
@@ -29,9 +24,9 @@ object json {
   implicit def jsonEncoder[F[_]: Sync, A: Encoder]: EntityEncoder[F, A] = jsonEncoderOf[F, A]
 
   // ----- Overriding some Coercible codecs ----
-  //  implicit val brandParamDecoder: Decoder[BrandParam] =
-  //    Decoder.forProduct1("name")(BrandParam.apply)
-  //
+  implicit val brandParamDecoder: Decoder[BrandParam] =
+    Decoder.forProduct1("name")(BrandParam.apply)
+
   //  implicit val categoryParamDecoder: Decoder[CategoryParam] =
   //    Decoder.forProduct1("name")(CategoryParam.apply)
 
@@ -82,8 +77,8 @@ object json {
   //  implicit val cartEncoder: Encoder[Cart] = Encoder.forProduct1("items")(_.items)
   //  implicit val cartDecoder: Decoder[Cart] = Decoder.forProduct1("items")(Cart.apply)
   //
-  //  implicit val userDecoder: Decoder[User] = deriveDecoder[User]
-  //  implicit val userEncoder: Encoder[User] = deriveEncoder[User]
+  implicit val userDecoder: Decoder[User] = deriveDecoder[User]
+  implicit val userEncoder: Encoder[User] = deriveEncoder[User]
 
   implicit val appStatusEncoder: Encoder[AppStatus] = deriveEncoder[AppStatus]
 

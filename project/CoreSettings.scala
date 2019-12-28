@@ -23,6 +23,7 @@ object CoreSettings {
       compilerPlugin(kindProjector),
       cats,
       catsEffect,
+      http4sJwtAuth, // TODO
       cirisCore,
       cirisEnum,
       cirisRefined,

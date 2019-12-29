@@ -5,6 +5,7 @@ import java.util.UUID
 import dev.profunktor.auth.jwt.JwtToken
 import io.estatico.newtype.macros.newtype
 import javax.crypto.Cipher
+import pdi.jwt.JwtClaim
 
 import scala.util.control.NoStackTrace
 
@@ -29,4 +30,8 @@ object Auth {
   case class UserNameInUse(username: UserName) extends NoStackTrace
   case class InvalidUserOrPassword(username: UserName) extends NoStackTrace
 
+}
+
+trait UsersAuth[F[_], A] {
+  def findUser(token: JwtToken)(claim: JwtClaim): F[Option[A]]
 }

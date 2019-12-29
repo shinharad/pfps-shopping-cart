@@ -5,7 +5,6 @@ import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
 import io.circe.generic.semiauto._
-import shop.adapter.http.request.users.User
 import shop.domain.Categories.Category
 import shop.domain.Items.Item
 import eu.timepit.refined._
@@ -18,6 +17,7 @@ import org.http4s._
 import shop.adapter.http.request.brand.BrandParam
 import shop.application.HealthCheck.AppStatus
 import shop.domain.Brands._
+import shop.domain.Users.User
 import squants.market._
 
 object json {

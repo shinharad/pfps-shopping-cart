@@ -11,10 +11,10 @@ services:
     volumes:
       - ./app/src/main/resources/tables.sql:/docker-entrypoint-initdb.d/init.sql
 
-#  Redis:
-#    restart: always
-#    image: redis:5.0.0
-#    ports:
-#      - "6379:6379"
-#    environment:
-#      - DEBUG=false
+  Redis:
+    restart: always
+    image: redis:5.0.0
+    ports:
+      - "6379:6379"
+    environment:
+      - DEBUG=false

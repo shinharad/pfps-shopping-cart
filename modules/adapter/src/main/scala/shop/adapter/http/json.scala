@@ -1,5 +1,6 @@
 package shop.adapter.http
 
+import cats.syntax.either._
 import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import io.circe._
@@ -7,6 +8,8 @@ import io.circe.generic.semiauto._
 import shop.adapter.http.request.users.User
 import shop.domain.Categories.Category
 import shop.domain.Items.Item
+import eu.timepit.refined._
+import eu.timepit.refined.api._
 import io.circe.refined._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
@@ -44,6 +47,14 @@ object json {
 
   implicit def coercibleKeyEncoder[A: Coercible[B, *], B: KeyEncoder]: KeyEncoder[A] =
     KeyEncoder[B].contramap[A](_.repr.asInstanceOf[B])
+
+  implicit def coercibleQueryParamDecoder[A: Coercible[B, *], B: QueryParamDecoder]: QueryParamDecoder[A] =
+    QueryParamDecoder[B].map(_.coerce[A])
+
+  implicit def refinedQueryParamDecoder[T: QueryParamDecoder, P](
+      implicit ev: Validate[T, P]
+  ): QueryParamDecoder[T Refined P] =
+    QueryParamDecoder[T].emap(refineV[P](_).leftMap(m => ParseFailure(m, m)))
 
   // ----- Domain codecs -----
 

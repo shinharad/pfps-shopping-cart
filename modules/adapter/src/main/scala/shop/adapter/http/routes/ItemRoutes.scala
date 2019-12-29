@@ -6,7 +6,6 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
 import shop.adapter.http.json._
 import shop.adapter.http.request.brand.BrandParam
-import shop.adapter.http.decoder._
 import shop.domain.Items
 
 final class ItemRoutes[F[_]: Sync](items: Items[F]) extends Http4sDsl[F] {

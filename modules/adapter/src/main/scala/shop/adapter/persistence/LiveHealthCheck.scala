@@ -4,9 +4,9 @@ import cats.Parallel
 import cats.effect._
 import cats.effect.implicits._
 import cats.implicits._
+import dev.profunktor.redis4cats.algebra.RedisCommands
 import shop.application.HealthCheck
 import shop.application.HealthCheck._
-//import dev.profunktor.redis4cats.algebra.RedisCommands
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._
@@ -16,29 +16,28 @@ import scala.language.postfixOps
 
 object LiveHealthCheck {
   def make[F[_]: Concurrent: Parallel: Timer](
-      sessionPool: Resource[F, Session[F]]
-//      redis: RedisCommands[F, String, String]
+      sessionPool: Resource[F, Session[F]],
+      redis: RedisCommands[F, String, String]
   ): F[HealthCheck[F]] =
     Sync[F].delay(
-      new LiveHealthCheck[F](sessionPool)
-//  new LiveHealthCheck[F](sessionPool, redis)
+      new LiveHealthCheck[F](sessionPool, redis)
     )
 }
 
 final class LiveHealthCheck[F[_]: Concurrent: Parallel: Timer] private (
-    sessionPool: Resource[F, Session[F]]
-//    redis: RedisCommands[F, String, String]
+    sessionPool: Resource[F, Session[F]],
+    redis: RedisCommands[F, String, String]
 ) extends HealthCheck[F] {
 
   val q: Query[Void, Int] =
     sql"SELECT pid FROM pg_stat_activity".query(int4)
 
-//  val redisHealth: F[RedisStatus] =
-//    redis.ping
-//      .map(_.nonEmpty)
-//      .timeout(1 second)
-//      .orElse(false.pure[F])
-//      .map(RedisStatus.apply)
+  val redisHealth: F[RedisStatus] =
+    redis.ping
+      .map(_.nonEmpty)
+      .timeout(1 second)
+      .orElse(false.pure[F])
+      .map(RedisStatus.apply)
 
   val postgresHealth: F[PostgresStatus] =
     sessionPool
@@ -49,7 +48,6 @@ final class LiveHealthCheck[F[_]: Concurrent: Parallel: Timer] private (
       .map(PostgresStatus.apply)
 
   val status: F[AppStatus] =
-    postgresHealth.map(AppStatus)
-//    (redisHealth, postgresHealth).parMapN(AppStatus)
+    (redisHealth, postgresHealth).parMapN(AppStatus)
 
 }

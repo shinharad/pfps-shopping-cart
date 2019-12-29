@@ -9,11 +9,11 @@ trait HealthCheck[F[_]] {
 
 object HealthCheck {
 
-  //  @newtype case class RedisStatus(value: Boolean)
+  @newtype case class RedisStatus(value: Boolean)
   @newtype case class PostgresStatus(value: Boolean)
 
   case class AppStatus(
-      //      redis: RedisStatus,
+      redis: RedisStatus,
       postgresStatus: PostgresStatus
   )
 

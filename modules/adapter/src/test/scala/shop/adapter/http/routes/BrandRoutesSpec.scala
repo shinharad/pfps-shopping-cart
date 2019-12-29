@@ -7,7 +7,7 @@ import org.http4s._
 import org.http4s.client.dsl.io._
 import shop.domain.Brands
 import shop.domain.Brands._
-import shop.adapter.http.json._
+import shop.adapter.http.HttpCodecs._
 import shop.suite.HttpTestSuite
 import shop.support.arbitraries._
 

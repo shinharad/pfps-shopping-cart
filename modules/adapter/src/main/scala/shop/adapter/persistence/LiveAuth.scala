@@ -14,7 +14,7 @@ import shop.domain._
 import shop.infrastructure.ErrorType.MonadThrow
 import shop.infrastructure.GenUUID
 import shop.infrastructure.config.data.TokenExpiration
-import shop.adapter.http.json._ // TODO
+import shop.adapter.persistence.PersistenceCodecs._
 
 object LiveAuth {
   def make[F[_]: Sync](

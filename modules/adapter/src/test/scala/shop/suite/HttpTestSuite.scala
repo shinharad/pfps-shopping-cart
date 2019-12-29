@@ -6,7 +6,7 @@ import io.circe._
 import io.circe.syntax._
 import org.http4s._
 import org.scalatest.Assertion
-import shop.adapter.http.json._
+import shop.adapter.http.HttpCodecs._
 
 import scala.util.control.NoStackTrace
 

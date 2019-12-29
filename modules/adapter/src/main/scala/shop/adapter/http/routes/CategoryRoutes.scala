@@ -5,7 +5,7 @@ import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
 import shop.domain.Categories
-import shop.adapter.http.json._
+import shop.adapter.http.HttpCodecs._
 
 final class CategoryRoutes[F[_]: Sync](categories: Categories[F]) extends Http4sDsl[F] {
 

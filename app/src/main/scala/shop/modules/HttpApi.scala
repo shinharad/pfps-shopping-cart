@@ -2,39 +2,42 @@ package shop.modules
 
 import cats.effect._
 import cats.implicits._
+import dev.profunktor.auth.JwtAuthMiddleware
+import dev.profunktor.auth.jwt.JwtToken
 import org.http4s.server.middleware._
-//import dev.profunktor.auth.JwtAuthMiddleware
-//import dev.profunktor.auth.jwt.JwtToken
+import shop.domain.Users.AdminUser
 import org.http4s._
 import org.http4s.implicits._
 import org.http4s.server.Router
-//import pdi.jwt._
+import pdi.jwt.JwtClaim
 import shop.adapter.http.routes._
-//import shop.http.auth.users._
-//import shop.http.routes._
-//import shop.http.routes.admin._
-//import shop.http.routes.auth._
-//import shop.http.routes.secured._
+import shop.adapter.http.routes.admin.AdminBrandRoutes
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
 object HttpApi {
   def make[F[_]: Concurrent: Timer](
-      repos: Repositories[F]
+      repos: Repositories[F],
+      security: Security[F]
   ): F[HttpApi[F]] =
     Sync[F].delay(
       new HttpApi[F](
-        repos
+        repos,
+        security
       )
     )
 }
 
 final class HttpApi[F[_]: Concurrent: Timer] private (
-    repos: Repositories[F]
+    repos: Repositories[F],
+    security: Security[F]
 ) {
 
-//  private val adminMiddleware = JwtAuthMiddleware[F, AdminUser](security.adminJwtAuth.value, adminAuth)
+  private val adminAuth: JwtToken => JwtClaim => F[Option[AdminUser]] =
+    t => c => security.adminAuth.findUser(t)(c)
+
+  private val adminMiddleware = JwtAuthMiddleware[F, AdminUser](security.adminJwtAuth.value, adminAuth)
 
   // Open routes
   private val healthRoutes   = new HealthRoutes[F](repos.healthCheck).routes
@@ -43,17 +46,18 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   private val itemRoutes     = new ItemRoutes[F](repos.items).routes
 
   // Admin routes
-//  private val adminBrandRoutes    = new AdminBrandRoutes[F](repos.brands).routes(adminMiddleware)
+  private val adminBrandRoutes = new AdminBrandRoutes[F](repos.brands).routes(adminMiddleware)
 
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
     healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes
 
-//  private val adminRoutes: HttpRoutes[F] =
-//    adminItemRoutes
+  private val adminRoutes: HttpRoutes[F] =
+    adminBrandRoutes
 
   private val routes: HttpRoutes[F] = Router(
-    version.v1 -> openRoutes
+    version.v1 -> openRoutes,
+    version.v1 + "/admin" -> adminRoutes
   )
 
   private val middleware: HttpRoutes[F] => HttpRoutes[F] = {

@@ -17,8 +17,9 @@ object Main extends IOApp {
       Logger[IO].info(s"Loaded config $cfg") *>
         AppResources.make[IO](cfg).use { res =>
           for {
+            security <- Security.make[IO](cfg, res.psql, res.redis)
             repos <- Repositories.make[IO](res.psql)
-            api <- HttpApi.make[IO](repos)
+            api <- HttpApi.make[IO](repos, security)
             _ <- BlazeServerBuilder[IO]
                   .bindHttp(8080, "localhost")
                   .withHttpApp(api.httpApp)

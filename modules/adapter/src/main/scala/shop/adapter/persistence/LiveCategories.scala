@@ -7,7 +7,7 @@ import shop.domain.Categories
 import shop.domain.Categories._
 import shop.infrastructure.GenUUID
 import shop.adapter.persistence.skunkx._
-import shop.infrastructure.error.BracketThrow
+import shop.infrastructure.ErrorType.BracketThrow
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

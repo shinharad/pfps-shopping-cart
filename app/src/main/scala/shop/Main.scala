@@ -5,6 +5,7 @@ import cats.implicits._
 import io.chrisdavenport.log4cats.Logger
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import org.http4s.server.blaze.BlazeServerBuilder
+import shop.infrastructure.config.ConfigLoader
 import shop.modules._
 
 object Main extends IOApp {

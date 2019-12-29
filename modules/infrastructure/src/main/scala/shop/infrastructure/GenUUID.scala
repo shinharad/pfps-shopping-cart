@@ -6,7 +6,7 @@ import cats.effect.Sync
 import cats.syntax.functor._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
-import shop.infrastructure.error.ApThrow
+import shop.infrastructure.ErrorType.ApThrow
 
 trait GenUUID[F[_]] {
   def make: F[UUID]

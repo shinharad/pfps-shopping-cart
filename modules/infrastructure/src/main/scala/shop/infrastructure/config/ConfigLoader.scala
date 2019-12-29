@@ -1,4 +1,4 @@
-package shop
+package shop.infrastructure.config
 
 import cats.effect._
 import cats.implicits._

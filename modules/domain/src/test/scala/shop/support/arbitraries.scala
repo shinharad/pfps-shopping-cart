@@ -6,8 +6,10 @@ import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
 import org.scalacheck.{ Arbitrary, Gen }
 import shop.domain.Brands.Brand
+import shop.domain.Categories.Category
+import shop.domain.Items.Item
 import shop.support.generators._
-//import squants.market.Money
+import squants.market.Money
 
 object arbitraries {
 
@@ -23,15 +25,15 @@ object arbitraries {
   implicit val arbBrand: Arbitrary[Brand] =
     Arbitrary(brandGen)
 
-//  implicit val arbCategory: Arbitrary[Category] =
-//    Arbitrary(categoryGen)
-//
-//  implicit val arbMoney: Arbitrary[Money] =
-//    Arbitrary(genMoney)
-//
-//  implicit val arbItem: Arbitrary[Item] =
-//    Arbitrary(itemGen)
-//
+  implicit val arbCategory: Arbitrary[Category] =
+    Arbitrary(categoryGen)
+
+  implicit val arbMoney: Arbitrary[Money] =
+    Arbitrary(genMoney)
+
+  implicit val arbItem: Arbitrary[Item] =
+    Arbitrary(itemGen)
+
 //  implicit val arbCartItem: Arbitrary[CartItem] =
 //    Arbitrary(cartItemGen)
 //

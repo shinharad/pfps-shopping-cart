@@ -18,7 +18,7 @@ class BrandRoutesSpec extends HttpTestSuite {
       IO.pure(brands)
   }
 
-  def failingBrands(brands: List[Brand]) = new TestBrands {
+  def failingBrands(brands: List[Brand]): TestBrands = new TestBrands {
     override def findAll: IO[List[Brand]] =
       IO.raiseError(DummyError) *> IO.pure(brands)
   }
@@ -32,7 +32,7 @@ class BrandRoutesSpec extends HttpTestSuite {
     }
   }
 
-  forAll { (b: List[Brand]) =>
+  forAll { b: List[Brand] =>
     spec("GET brands [ERROR]") {
       GET(Uri.uri("/brands")).flatMap { req =>
         val routes = new BrandRoutes[IO](failingBrands(b)).routes

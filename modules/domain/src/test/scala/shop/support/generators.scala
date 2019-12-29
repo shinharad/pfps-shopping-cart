@@ -2,6 +2,9 @@ package shop.support
 
 import java.util.UUID
 
+import shop.domain.Categories._
+import shop.domain.Items._
+
 //import eu.timepit.refined.api.Refined
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
@@ -40,22 +43,22 @@ object generators {
       n <- cbStr[BrandName]
     } yield Brand(i, n)
 
-//  val categoryGen: Gen[Category] =
-//    for {
-//      i <- cbUuid[CategoryId]
-//      n <- cbStr[CategoryName]
-//    } yield Category(i, n)
-//
-//  val itemGen: Gen[Item] =
-//    for {
-//      i <- cbUuid[ItemId]
-//      n <- cbStr[ItemName]
-//      d <- cbStr[ItemDescription]
-//      p <- genMoney
-//      b <- brandGen
-//      c <- categoryGen
-//    } yield Item(i, n, d, p, b, c)
-//
+  val categoryGen: Gen[Category] =
+    for {
+      i <- cbUuid[CategoryId]
+      n <- cbStr[CategoryName]
+    } yield Category(i, n)
+
+  val itemGen: Gen[Item] =
+    for {
+      i <- cbUuid[ItemId]
+      n <- cbStr[ItemName]
+      d <- cbStr[ItemDescription]
+      p <- genMoney
+      b <- brandGen
+      c <- categoryGen
+    } yield Item(i, n, d, p, b, c)
+
 //  val cartItemGen: Gen[CartItem] =
 //    for {
 //      i <- itemGen

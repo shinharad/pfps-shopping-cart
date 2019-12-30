@@ -15,7 +15,8 @@ import org.http4s.circe._
 import shop.adapter.codec.CodecsUnderlying
 import shop.adapter.http.request.brand.BrandParam
 import shop.adapter.http.request.category.CategoryParam
-import shop.adapter.http.request.items.{ CreateItemParam, UpdateItemParam }
+import shop.adapter.http.request.items._
+import shop.adapter.http.request.users._
 import shop.application.HealthCheck.AppStatus
 
 object HttpCodecs extends CodecsUnderlying {
@@ -42,6 +43,9 @@ object HttpCodecs extends CodecsUnderlying {
 
   implicit val createItemDecoder: Decoder[CreateItemParam] = deriveDecoder[CreateItemParam]
   implicit val updateItemDecoder: Decoder[UpdateItemParam] = deriveDecoder[UpdateItemParam]
+
+  implicit val createUserDecoder: Decoder[CreateUser] = deriveDecoder[CreateUser]
+  implicit val loginUserDecoder: Decoder[LoginUser]   = deriveDecoder[LoginUser]
 
   implicit val appStatusEncoder: Encoder[AppStatus] = deriveEncoder[AppStatus]
 

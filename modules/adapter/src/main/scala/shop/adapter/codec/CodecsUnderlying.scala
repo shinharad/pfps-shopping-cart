@@ -38,10 +38,6 @@ trait CodecsUnderlying extends NewtypeCodecs {
   implicit val userDecoder: Decoder[User] = deriveDecoder[User]
   implicit val userEncoder: Encoder[User] = deriveEncoder[User]
 
-  //  implicit val createUserDecoder: Decoder[CreateUser] = deriveDecoder[CreateUser]
-  //
-  //  implicit val loginUserDecoder: Decoder[LoginUser] = deriveDecoder[LoginUser]
-
 }
 
 object CodecsUnderlying extends CodecsUnderlying

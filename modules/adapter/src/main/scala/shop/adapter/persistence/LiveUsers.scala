@@ -2,9 +2,9 @@ package shop.adapter.persistence
 
 import cats.effect._
 import cats.implicits._
-import shop.domain.Auth._
+import shop.domain.Crypto._
 import shop.domain._
-import shop.domain.Users.User
+import shop.domain.Users._
 import shop.infrastructure.ErrorType.BracketThrow
 import shop.infrastructure.GenUUID
 import shop.adapter.persistence.skunkx._
@@ -18,7 +18,6 @@ object LiveUsers {
       crypto: Crypto
   ): F[Users[F]] =
     Sync[F].delay(
-      // TODO
       new LiveUsers[F](sessionPool, crypto)
     )
 }

@@ -7,7 +7,6 @@ import dev.profunktor.redis4cats.algebra.RedisCommands
 import pdi.jwt._
 import shop.adapter.http.request.users._
 import shop.adapter.persistence._
-import shop.domain.Auth.{ UserId, UserName }
 import shop.domain.Users._
 import shop.domain._
 import shop.infrastructure.GenUUID

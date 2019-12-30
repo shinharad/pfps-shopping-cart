@@ -3,7 +3,7 @@ package shop.adapter.http.request
 import dev.profunktor.auth.jwt.JwtSymmetricAuth
 import eu.timepit.refined.types.string.NonEmptyString
 import io.estatico.newtype.macros.newtype
-import shop.domain.Auth._
+import shop.domain.Users._
 
 object users {
 

@@ -1,7 +1,10 @@
 package shop.domain
 
+import java.util.UUID
+
 import io.estatico.newtype.macros.newtype
-import shop.domain.Auth._
+
+import scala.util.control.NoStackTrace
 
 trait Users[F[_]] {
   import Users._
@@ -11,9 +14,16 @@ trait Users[F[_]] {
 
 object Users {
 
+  @newtype case class UserId(value: UUID)
+  @newtype case class UserName(value: String)
+  @newtype case class Password(value: String)
+
   case class User(id: UserId, name: UserName)
 
   @newtype case class CommonUser(value: User)
   @newtype case class AdminUser(value: User)
+
+  case class UserNameInUse(username: UserName) extends NoStackTrace
+  case class InvalidUserOrPassword(username: UserName) extends NoStackTrace
 
 }

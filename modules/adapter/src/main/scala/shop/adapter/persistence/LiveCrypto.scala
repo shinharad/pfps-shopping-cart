@@ -4,8 +4,9 @@ import cats.effect.Sync
 import cats.implicits._
 import javax.crypto.{ Cipher, SecretKeyFactory }
 import javax.crypto.spec.{ PBEKeySpec, SecretKeySpec }
-import shop.domain.Auth._
+import shop.domain.Crypto._
 import shop.domain.Crypto
+import shop.domain.Users.Password
 import shop.infrastructure.config.data.PasswordSalt
 
 object LiveCrypto {

@@ -1,20 +1,19 @@
 package shop.adapter.persistence
 
+import cats.effect.Sync
 import cats.implicits._
 import cats.{ Applicative, Functor }
-import cats.effect.Sync
 import dev.profunktor.auth.jwt.JwtToken
 import dev.profunktor.redis4cats.algebra.RedisCommands
-import pdi.jwt.JwtClaim
 import io.circe.parser.decode
 import io.circe.syntax._
-import shop.domain.Auth._
+import pdi.jwt.JwtClaim
+import shop.adapter.persistence.PersistenceCodecs._
 import shop.domain.Users._
 import shop.domain._
 import shop.infrastructure.ErrorType.MonadThrow
 import shop.infrastructure.GenUUID
 import shop.infrastructure.config.data.TokenExpiration
-import shop.adapter.persistence.PersistenceCodecs._
 
 object LiveAuth {
   def make[F[_]: Sync](

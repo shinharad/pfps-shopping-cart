@@ -12,7 +12,7 @@ import org.http4s.server.Router
 import pdi.jwt.JwtClaim
 import shop.adapter.http.routes._
 import shop.adapter.http.routes.admin._
-import shop.adapter.http.routes.auth.UserRoutes
+import shop.adapter.http.routes.auth.{ LoginRoutes, UserRoutes }
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -41,7 +41,8 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   private val adminMiddleware = JwtAuthMiddleware[F, AdminUser](security.adminJwtAuth.value, adminAuth)
 
   // Auth routes
-  private val userRoutes = new UserRoutes[F](security.auth).routes
+  private val loginRoutes = new LoginRoutes[F](security.auth).routes
+  private val userRoutes  = new UserRoutes[F](security.auth).routes
 
   // Open routes
   private val healthRoutes   = new HealthRoutes[F](repos.healthCheck).routes
@@ -57,7 +58,7 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
     healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes <+>
-        userRoutes
+        loginRoutes <+> userRoutes
 
   private val adminRoutes: HttpRoutes[F] =
     adminBrandRoutes <+> adminCategoryRoutes <+> adminItemRoutes

@@ -14,6 +14,7 @@ import org.http4s._
 import org.http4s.circe._
 import shop.adapter.codec.CodecsUnderlying
 import shop.adapter.http.request.brand.BrandParam
+import shop.adapter.http.request.category.CategoryParam
 import shop.application.HealthCheck.AppStatus
 
 object HttpCodecs extends CodecsUnderlying {
@@ -26,8 +27,8 @@ object HttpCodecs extends CodecsUnderlying {
   implicit val brandParamDecoder: Decoder[BrandParam] =
     Decoder.forProduct1("name")(BrandParam.apply)
 
-  //  implicit val categoryParamDecoder: Decoder[CategoryParam] =
-  //    Decoder.forProduct1("name")(CategoryParam.apply)
+  implicit val categoryParamDecoder: Decoder[CategoryParam] =
+    Decoder.forProduct1("name")(CategoryParam.apply)
 
   // ----- Coercible codecs -----
   implicit def coercibleQueryParamDecoder[A: Coercible[B, *], B: QueryParamDecoder]: QueryParamDecoder[A] =

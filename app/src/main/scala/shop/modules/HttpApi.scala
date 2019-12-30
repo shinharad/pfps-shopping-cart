@@ -11,7 +11,7 @@ import org.http4s.implicits._
 import org.http4s.server.Router
 import pdi.jwt.JwtClaim
 import shop.adapter.http.routes._
-import shop.adapter.http.routes.admin.AdminBrandRoutes
+import shop.adapter.http.routes.admin._
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -46,14 +46,16 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   private val itemRoutes     = new ItemRoutes[F](repos.items).routes
 
   // Admin routes
-  private val adminBrandRoutes = new AdminBrandRoutes[F](repos.brands).routes(adminMiddleware)
+  private val adminBrandRoutes    = new AdminBrandRoutes[F](repos.brands).routes(adminMiddleware)
+  private val adminCategoryRoutes = new AdminCategoryRoutes[F](repos.categories).routes(adminMiddleware)
+  private val adminItemRoutes     = new AdminItemRoutes[F](repos.items).routes(adminMiddleware)
 
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
     healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes
 
   private val adminRoutes: HttpRoutes[F] =
-    adminBrandRoutes
+    adminBrandRoutes <+> adminCategoryRoutes <+> adminItemRoutes
 
   private val routes: HttpRoutes[F] = Router(
     version.v1 -> openRoutes,

@@ -49,9 +49,4 @@ object items {
       )
   }
 
-  case class UpdateItem(
-      id: ItemId,
-      price: Money
-  )
-
 }

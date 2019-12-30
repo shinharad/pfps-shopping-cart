@@ -5,14 +5,14 @@ import cats.implicits._
 import dev.profunktor.auth.JwtAuthMiddleware
 import dev.profunktor.auth.jwt.JwtToken
 import org.http4s.server.middleware._
-import shop.domain.Users.AdminUser
+import shop.domain.Users.{ AdminUser, CommonUser }
 import org.http4s._
 import org.http4s.implicits._
 import org.http4s.server.Router
 import pdi.jwt.JwtClaim
 import shop.adapter.http.routes._
 import shop.adapter.http.routes.admin._
-import shop.adapter.http.routes.auth.{ LoginRoutes, UserRoutes }
+import shop.adapter.http.routes.auth.{ LoginRoutes, LogoutRoutes, UserRoutes }
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -37,12 +37,16 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
 
   private val adminAuth: JwtToken => JwtClaim => F[Option[AdminUser]] =
     t => c => security.adminAuth.findUser(t)(c)
+  private val usersAuth: JwtToken => JwtClaim => F[Option[CommonUser]] =
+    t => c => security.usersAuth.findUser(t)(c)
 
   private val adminMiddleware = JwtAuthMiddleware[F, AdminUser](security.adminJwtAuth.value, adminAuth)
+  private val usersMiddleware = JwtAuthMiddleware[F, CommonUser](security.userJwtAuth.value, usersAuth)
 
   // Auth routes
-  private val loginRoutes = new LoginRoutes[F](security.auth).routes
-  private val userRoutes  = new UserRoutes[F](security.auth).routes
+  private val loginRoutes  = new LoginRoutes[F](security.auth).routes
+  private val logoutRoutes = new LogoutRoutes[F](security.auth).routes(usersMiddleware)
+  private val userRoutes   = new UserRoutes[F](security.auth).routes
 
   // Open routes
   private val healthRoutes   = new HealthRoutes[F](repos.healthCheck).routes
@@ -58,7 +62,7 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
     healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes <+>
-        loginRoutes <+> userRoutes
+        loginRoutes <+> logoutRoutes <+> userRoutes
 
   private val adminRoutes: HttpRoutes[F] =
     adminBrandRoutes <+> adminCategoryRoutes <+> adminItemRoutes

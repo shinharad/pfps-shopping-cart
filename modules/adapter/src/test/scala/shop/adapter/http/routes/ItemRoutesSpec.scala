@@ -5,7 +5,7 @@ import cats.implicits._
 import org.http4s.Method._
 import org.http4s._
 import org.http4s.client.dsl.io._
-import shop.adapter.http.HttpCodecs._
+import shop.adapter.http.codecs._
 import shop.domain.Brands._
 import shop.domain.Items._
 import shop.domain._

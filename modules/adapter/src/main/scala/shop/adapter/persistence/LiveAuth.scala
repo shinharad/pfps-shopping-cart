@@ -8,7 +8,7 @@ import dev.profunktor.redis4cats.algebra.RedisCommands
 import io.circe.parser.decode
 import io.circe.syntax._
 import pdi.jwt.JwtClaim
-import shop.adapter.persistence.PersistenceCodecs._
+import shop.adapter.persistence.codecs._
 import shop.domain.Users._
 import shop.domain._
 import shop.infrastructure.ErrorType.MonadThrow

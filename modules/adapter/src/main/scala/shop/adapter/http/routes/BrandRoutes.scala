@@ -4,7 +4,7 @@ import cats.effect.Sync
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
-import shop.adapter.http.HttpCodecs._
+import shop.adapter.http.codecs._
 import shop.domain.Brands
 
 final class BrandRoutes[F[_]: Sync](brands: Brands[F]) extends Http4sDsl[F] {

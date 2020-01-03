@@ -5,7 +5,7 @@ import cats.implicits._
 import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
-import shop.adapter.http.HttpCodecs._
+import shop.adapter.http.codecs._
 import shop.adapter.http.decoder._
 import shop.adapter.http.request.users.LoginUser
 import shop.domain.Auth

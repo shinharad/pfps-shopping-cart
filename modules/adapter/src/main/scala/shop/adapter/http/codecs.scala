@@ -19,7 +19,7 @@ import shop.adapter.http.request.items._
 import shop.adapter.http.request.users._
 import shop.application.HealthCheck.AppStatus
 
-object HttpCodecs extends CodecsUnderlying {
+object codecs extends CodecsUnderlying {
 
   implicit def jsonDecoder[F[_]: Sync, A: Decoder]: EntityDecoder[F, A] = jsonOf[F, A]
 

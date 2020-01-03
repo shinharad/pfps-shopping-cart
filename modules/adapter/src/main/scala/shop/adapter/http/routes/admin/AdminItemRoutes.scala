@@ -5,7 +5,7 @@ import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server._
 import shop.adapter.http.decoder._
-import shop.adapter.http.HttpCodecs._
+import shop.adapter.http.codecs._
 import shop.adapter.http.request.items._
 import shop.domain.Items
 import shop.domain.Users.AdminUser

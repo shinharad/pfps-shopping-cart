@@ -7,7 +7,7 @@ import org.http4s.server._
 import shop.domain.Categories
 import shop.domain.Users.AdminUser
 import shop.adapter.http.decoder._
-import shop.adapter.http.HttpCodecs._
+import shop.adapter.http.codecs._
 import shop.adapter.http.request.category.CategoryParam
 
 final class AdminCategoryRoutes[F[_]: Sync](

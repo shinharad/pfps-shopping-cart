@@ -4,7 +4,7 @@ import java.util.UUID
 
 import io.estatico.newtype.macros.newtype
 import shop.domain.Items.ItemId
-import shop.domain.ShoppingCart.{CartItem, Quantity}
+import shop.domain.ShoppingCart.{ CartItem, Quantity }
 import shop.domain.Users.UserId
 import squants.market.Money
 

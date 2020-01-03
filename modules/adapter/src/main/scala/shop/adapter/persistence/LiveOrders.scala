@@ -3,6 +3,8 @@ package shop.adapter.persistence
 import cats.effect._
 import cats.syntax.flatMap._
 import cats.syntax.functor._
+import shop.adapter.persistence.skunkx._
+import shop.adapter.persistence.codecs._
 import shop.domain.Items.ItemId
 import shop.domain.Orders
 import shop.domain.Orders._
@@ -14,8 +16,6 @@ import skunk.circe.codec.all._
 import skunk.codec.all._
 import skunk.implicits._
 import squants.market._
-import shop.adapter.persistence.codecs._
-import shop.adapter.persistence.skunkx._
 
 object LiveOrders {
   def make[F[_]: Sync](

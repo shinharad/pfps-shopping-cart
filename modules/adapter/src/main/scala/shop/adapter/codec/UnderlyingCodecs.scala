@@ -8,7 +8,7 @@ import shop.domain.Items.Item
 import shop.domain.Users.User
 import squants.market._
 
-trait CodecsUnderlying extends NewtypeCodecs {
+trait UnderlyingCodecs extends NewtypeCodecs {
 
   // ----- Domain codecs -----
   implicit val brandDecoder: Decoder[Brand] = deriveDecoder[Brand]
@@ -40,4 +40,4 @@ trait CodecsUnderlying extends NewtypeCodecs {
 
 }
 
-object CodecsUnderlying extends CodecsUnderlying
+object UnderlyingCodecs extends UnderlyingCodecs

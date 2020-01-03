@@ -12,14 +12,14 @@ import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
 import org.http4s._
 import org.http4s.circe._
-import shop.adapter.codec.CodecsUnderlying
+import shop.adapter.codec.UnderlyingCodecs
 import shop.adapter.http.request.brand.BrandParam
 import shop.adapter.http.request.category.CategoryParam
 import shop.adapter.http.request.items._
 import shop.adapter.http.request.users._
 import shop.application.HealthCheck.AppStatus
 
-object codecs extends CodecsUnderlying {
+object codecs extends UnderlyingCodecs {
 
   implicit def jsonDecoder[F[_]: Sync, A: Decoder]: EntityDecoder[F, A] = jsonOf[F, A]
 

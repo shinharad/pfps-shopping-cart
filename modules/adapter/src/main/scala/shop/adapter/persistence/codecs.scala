@@ -1,5 +1,5 @@
 package shop.adapter.persistence
 
-import shop.adapter.codec.CodecsUnderlying
+import shop.adapter.codec.UnderlyingCodecs
 
-object codecs extends CodecsUnderlying
+object codecs extends UnderlyingCodecs

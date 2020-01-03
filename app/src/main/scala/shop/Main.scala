@@ -18,7 +18,7 @@ object Main extends IOApp {
         AppResources.make[IO](cfg).use { res =>
           for {
             security <- Security.make[IO](cfg, res.psql, res.redis)
-            repos <- Repositories.make[IO](res.redis, res.psql)
+            repos <- Repositories.make[IO](res.redis, res.psql, cfg.cartExpiration)
             api <- HttpApi.make[IO](repos, security)
             _ <- BlazeServerBuilder[IO]
                   .bindHttp(8080, "localhost")

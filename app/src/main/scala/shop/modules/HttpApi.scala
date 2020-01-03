@@ -62,13 +62,16 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =
     healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes <+>
-        loginRoutes <+> logoutRoutes <+> userRoutes
+        loginRoutes <+> userRoutes
+
+  private val signedInRoutes: HttpRoutes[F] =
+    logoutRoutes
 
   private val adminRoutes: HttpRoutes[F] =
     adminBrandRoutes <+> adminCategoryRoutes <+> adminItemRoutes
 
   private val routes: HttpRoutes[F] = Router(
-    version.v1 -> openRoutes,
+    version.v1 -> (openRoutes <+> signedInRoutes),
     version.v1 + "/admin" -> adminRoutes
   )
 

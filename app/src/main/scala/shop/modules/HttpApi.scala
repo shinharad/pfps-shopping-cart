@@ -20,11 +20,13 @@ import scala.language.postfixOps
 object HttpApi {
   def make[F[_]: Concurrent: Timer](
       repos: Repositories[F],
+      programs: Programs[F],
       security: Security[F]
   ): F[HttpApi[F]] =
     Sync[F].delay(
       new HttpApi[F](
         repos,
+        programs,
         security
       )
     )
@@ -32,6 +34,7 @@ object HttpApi {
 
 final class HttpApi[F[_]: Concurrent: Timer] private (
     repos: Repositories[F],
+    @annotation.unused programs: Programs[F], // TODO
     security: Security[F]
 ) {
 

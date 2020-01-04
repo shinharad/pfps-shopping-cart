@@ -38,7 +38,6 @@ lazy val adapter = (project in file("modules/adapter"))
   .settings(
     name := s"$basename-adapter",
     libraryDependencies ++= Seq(
-      catsRetry, // TODO
       circeCore,
       circeGeneric,
       circeParser,

@@ -6,8 +6,8 @@ import cats.syntax.functor._
 import shop.adapter.persistence.skunkx._
 import shop.domain.Brands
 import shop.domain.Brands._
-import shop.infrastructure._
 import shop.infrastructure.ErrorType.BracketThrow
+import shop.infrastructure.effect.GenUUID
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

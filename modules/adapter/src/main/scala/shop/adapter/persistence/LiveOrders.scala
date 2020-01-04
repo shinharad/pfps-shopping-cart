@@ -10,7 +10,7 @@ import shop.domain.Orders
 import shop.domain.Orders._
 import shop.domain.ShoppingCart._
 import shop.domain.Users.UserId
-import shop.infrastructure.GenUUID
+import shop.infrastructure.effect.GenUUID
 import skunk._
 import skunk.circe.codec.all._
 import skunk.codec.all._

@@ -7,8 +7,8 @@ import shop.domain.Brands._
 import shop.domain.Categories._
 import shop.domain.Items
 import shop.domain.Items._
-import shop.infrastructure.GenUUID
 import shop.adapter.persistence.skunkx._
+import shop.infrastructure.effect.GenUUID
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

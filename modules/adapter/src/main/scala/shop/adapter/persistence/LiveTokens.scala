@@ -6,9 +6,8 @@ import dev.profunktor.auth.jwt._
 import io.circe.syntax._
 import pdi.jwt._
 import shop.domain.Tokens
-import shop.infrastructure.GenUUID
-import shop.infrastructure.GenUUID._
 import shop.infrastructure.config.data._
+import shop.infrastructure.effect.GenUUID
 
 import scala.concurrent.duration.FiniteDuration
 

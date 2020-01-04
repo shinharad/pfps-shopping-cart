@@ -9,8 +9,8 @@ import shop.adapter.http.request.users._
 import shop.adapter.persistence._
 import shop.domain.Users._
 import shop.domain._
-import shop.infrastructure.GenUUID
 import shop.infrastructure.config.data.AppConfig
+import shop.infrastructure.effect.GenUUID
 import skunk.Session
 
 object Security {

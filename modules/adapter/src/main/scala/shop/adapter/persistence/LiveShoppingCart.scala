@@ -8,8 +8,8 @@ import shop.domain.ShoppingCart._
 import shop.domain.Users.UserId
 import shop.domain._
 import shop.infrastructure.ErrorType._
-import shop.infrastructure.GenUUID
 import shop.infrastructure.config.data.ShoppingCartExpiration
+import shop.infrastructure.effect.GenUUID
 import squants.market._
 
 object LiveShoppingCart {

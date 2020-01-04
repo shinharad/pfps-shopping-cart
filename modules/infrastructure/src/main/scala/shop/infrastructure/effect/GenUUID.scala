@@ -1,4 +1,4 @@
-package shop.infrastructure
+package shop.infrastructure.effect
 
 import java.util.UUID
 

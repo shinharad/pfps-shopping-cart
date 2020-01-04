@@ -5,9 +5,9 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import shop.domain.Categories
 import shop.domain.Categories._
-import shop.infrastructure.GenUUID
 import shop.adapter.persistence.skunkx._
 import shop.infrastructure.ErrorType.BracketThrow
+import shop.infrastructure.effect.GenUUID
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

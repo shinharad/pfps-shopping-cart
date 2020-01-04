@@ -6,8 +6,8 @@ import shop.domain.Crypto._
 import shop.domain._
 import shop.domain.Users._
 import shop.infrastructure.ErrorType.BracketThrow
-import shop.infrastructure.GenUUID
 import shop.adapter.persistence.skunkx._
+import shop.infrastructure.effect.GenUUID
 import skunk._
 import skunk.codec.all._
 import skunk.implicits._

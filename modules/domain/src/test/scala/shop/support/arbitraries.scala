@@ -7,7 +7,9 @@ import io.estatico.newtype.ops._
 import org.scalacheck.{ Arbitrary, Gen }
 import shop.domain.Brands.Brand
 import shop.domain.Categories.Category
+import shop.domain.Checkout.Card
 import shop.domain.Items.Item
+import shop.domain.ShoppingCart._
 import shop.support.generators._
 import squants.market.Money
 
@@ -34,16 +36,16 @@ object arbitraries {
   implicit val arbItem: Arbitrary[Item] =
     Arbitrary(itemGen)
 
-//  implicit val arbCartItem: Arbitrary[CartItem] =
-//    Arbitrary(cartItemGen)
-//
-//  implicit val arbCartTotal: Arbitrary[CartTotal] =
-//    Arbitrary(cartTotalGen)
-//
-//  implicit val arbCart: Arbitrary[Cart] =
-//    Arbitrary(cartGen)
-//
-//  implicit val arbCard: Arbitrary[Card] =
-//    Arbitrary(cardGen)
+  implicit val arbCartItem: Arbitrary[CartItem] =
+    Arbitrary(cartItemGen)
+
+  implicit val arbCartTotal: Arbitrary[CartTotal] =
+    Arbitrary(cartTotalGen)
+
+  implicit val arbCart: Arbitrary[Cart] =
+    Arbitrary(cartGen)
+
+  implicit val arbCard: Arbitrary[Card] =
+    Arbitrary(cardGen)
 
 }

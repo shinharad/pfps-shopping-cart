@@ -2,14 +2,15 @@ package shop.support
 
 import java.util.UUID
 
+import eu.timepit.refined.api.Refined
 import shop.domain.Categories._
 import shop.domain.Items._
-
-//import eu.timepit.refined.api.Refined
+import shop.domain.ShoppingCart._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
 import org.scalacheck.Gen
 import shop.domain.Brands._
+import shop.domain.Checkout._
 import squants.market._
 
 object generators {
@@ -59,34 +60,34 @@ object generators {
       c <- categoryGen
     } yield Item(i, n, d, p, b, c)
 
-//  val cartItemGen: Gen[CartItem] =
-//    for {
-//      i <- itemGen
-//      q <- cbInt[Quantity]
-//    } yield CartItem(i, q)
-//
-//  val cartTotalGen: Gen[CartTotal] =
-//    for {
-//      i <- Gen.nonEmptyListOf(cartItemGen)
-//      t <- genMoney
-//    } yield CartTotal(i, t)
-//
-//  val itemMapGen: Gen[(ItemId, Quantity)] =
-//    for {
-//      i <- cbUuid[ItemId]
-//      q <- cbInt[Quantity]
-//    } yield i -> q
-//
-//  val cartGen: Gen[Cart] =
-//    Gen.nonEmptyMap(itemMapGen).map(Cart.apply)
-//
-//  // Refined.unsafeApplyはテストのみに使用する
-//  val cardGen: Gen[Card] =
-//    for {
-//      n <- genNonEmptyString.map[CardNamePred](Refined.unsafeApply)
-//      u <- Gen.posNum[Long].map[CardNumberPred](Refined.unsafeApply)
-//      x <- Gen.posNum[Int].map[CardExpirationPred](x => Refined.unsafeApply(x.toString))
-//      c <- Gen.posNum[Int].map[CardCCVPred](Refined.unsafeApply)
-//    } yield Card(CardName(n), CardNumber(u), CardExpiration(x), CardCCV(c))
+  val cartItemGen: Gen[CartItem] =
+    for {
+      i <- itemGen
+      q <- cbInt[Quantity]
+    } yield CartItem(i, q)
+
+  val cartTotalGen: Gen[CartTotal] =
+    for {
+      i <- Gen.nonEmptyListOf(cartItemGen)
+      t <- genMoney
+    } yield CartTotal(i, t)
+
+  val itemMapGen: Gen[(ItemId, Quantity)] =
+    for {
+      i <- cbUuid[ItemId]
+      q <- cbInt[Quantity]
+    } yield i -> q
+
+  val cartGen: Gen[Cart] =
+    Gen.nonEmptyMap(itemMapGen).map(Cart.apply)
+
+  // Refined.unsafeApplyはテストのみに使用する
+  val cardGen: Gen[Card] =
+    for {
+      n <- genNonEmptyString.map[CardNamePred](Refined.unsafeApply)
+      u <- Gen.posNum[Long].map[CardNumberPred](Refined.unsafeApply)
+      x <- Gen.posNum[Int].map[CardExpirationPred](x => Refined.unsafeApply(x.toString))
+      c <- Gen.posNum[Int].map[CardCCVPred](Refined.unsafeApply)
+    } yield Card(CardName(n), CardNumber(u), CardExpiration(x), CardCCV(c))
 
 }

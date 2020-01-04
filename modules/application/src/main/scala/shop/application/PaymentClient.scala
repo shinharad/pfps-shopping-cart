@@ -1,6 +1,6 @@
 package shop.application
 
-import javax.smartcardio.Card
+import shop.domain.Checkout.Card
 import shop.domain.Orders.PaymentId
 import shop.domain.Users.UserId
 import squants.market.Money

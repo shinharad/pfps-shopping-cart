@@ -7,9 +7,9 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import cats.syntax.monadError._
 import io.chrisdavenport.log4cats.Logger
-import javax.smartcardio.Card
 import retry.RetryDetails.{ GivingUp, WillDelayAndRetry }
 import retry._
+import shop.domain.Checkout.Card
 import shop.domain.Orders._
 import shop.domain.ShoppingCart._
 import shop.domain.Users.UserId

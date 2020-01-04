@@ -4,11 +4,11 @@ import cats.effect.Sync
 import cats.syntax.applicativeError._
 import cats.syntax.either._
 import cats.syntax.flatMap._
-import javax.smartcardio.Card
 import org.http4s._
 import org.http4s.client.Client
 import shop.adapter.external.codecs._
 import shop.application.PaymentClient
+import shop.domain.Checkout.Card
 import shop.domain.Orders._
 import shop.domain.Users.UserId
 import shop.infrastructure.config.data.PaymentConfig

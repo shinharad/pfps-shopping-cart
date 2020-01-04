@@ -7,8 +7,8 @@ import squants.market.Money
 
 trait PaymentClient[F[_]] {
   def process(
-    userId: UserId,
-    total: Money,
-    card: Card
+      userId: UserId,
+      total: Money,
+      card: Card
   ): F[PaymentId]
 }

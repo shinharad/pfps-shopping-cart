@@ -8,8 +8,8 @@ import shop.infrastructure.config.data.PaymentConfig
 
 object HttpClients {
   def make[F[_]: Sync](
-    cfg: PaymentConfig,
-    client: Client[F]
+      cfg: PaymentConfig,
+      client: Client[F]
   ): F[HttpClients[F]] =
     Sync[F].delay(
       new HttpClients[F] {

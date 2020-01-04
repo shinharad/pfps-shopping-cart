@@ -25,7 +25,10 @@ lazy val domain = (project in file("modules/domain"))
 lazy val application = (project in file("modules/application"))
   .disablePlugins(RevolverPlugin)
   .settings(
-    name := s"$basename-application"
+    name := s"$basename-application",
+    libraryDependencies ++= Seq(
+      catsRetry
+    )
   )
   .settings(CoreSettings.settings)
   .dependsOn(domain % "test->test;compile->compile")
@@ -35,7 +38,7 @@ lazy val adapter = (project in file("modules/adapter"))
   .settings(
     name := s"$basename-adapter",
     libraryDependencies ++= Seq(
-      catsRetry,
+      catsRetry, // TODO
       circeCore,
       circeGeneric,
       circeParser,

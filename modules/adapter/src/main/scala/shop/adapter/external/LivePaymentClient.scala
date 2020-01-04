@@ -8,18 +8,11 @@ import javax.smartcardio.Card
 import org.http4s._
 import org.http4s.client.Client
 import shop.adapter.external.codecs._
+import shop.application.PaymentClient
 import shop.domain.Orders._
 import shop.domain.Users.UserId
 import shop.infrastructure.config.data.PaymentConfig
 import squants.market.Money
-
-trait PaymentClient[F[_]] {
-  def process(
-      userId: UserId,
-      total: Money,
-      card: Card
-  ): F[PaymentId]
-}
 
 class LivePaymentClient[F[_]: Sync](
     cfg: PaymentConfig,

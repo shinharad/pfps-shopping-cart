@@ -13,7 +13,7 @@ import shop.infrastructure.effect.Background
 object Programs {
   def make[F[_]: Background: Logger: Sync: Timer](
       checkoutConfig: CheckoutConfig,
-      algebras: Repositories[F],
+      algebras: Algebras[F],
       clients: HttpClients[F]
   ): F[Programs[F]] =
     Sync[F].delay(
@@ -23,7 +23,7 @@ object Programs {
 
 final class Programs[F[_]: Background: Logger: MonadThrow: Timer] private (
     cfg: CheckoutConfig,
-    algebras: Repositories[F],
+    algebras: Algebras[F],
     clients: HttpClients[F]
 ) {
 

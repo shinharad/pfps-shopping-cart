@@ -19,13 +19,13 @@ import scala.language.postfixOps
 
 object HttpApi {
   def make[F[_]: Concurrent: Timer](
-      repos: Repositories[F],
+      algebras: Algebras[F],
       programs: Programs[F],
       security: Security[F]
   ): F[HttpApi[F]] =
     Sync[F].delay(
       new HttpApi[F](
-        repos,
+        algebras,
         programs,
         security
       )
@@ -33,7 +33,7 @@ object HttpApi {
 }
 
 final class HttpApi[F[_]: Concurrent: Timer] private (
-    repos: Repositories[F],
+    algebras: Algebras[F],
     @annotation.unused programs: Programs[F], // TODO
     security: Security[F]
 ) {
@@ -52,15 +52,15 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   private val userRoutes   = new UserRoutes[F](security.auth).routes
 
   // Open routes
-  private val healthRoutes   = new HealthRoutes[F](repos.healthCheck).routes
-  private val brandRoutes    = new BrandRoutes[F](repos.brands).routes
-  private val categoryRoutes = new CategoryRoutes[F](repos.categories).routes
-  private val itemRoutes     = new ItemRoutes[F](repos.items).routes
+  private val healthRoutes   = new HealthRoutes[F](algebras.healthCheck).routes
+  private val brandRoutes    = new BrandRoutes[F](algebras.brands).routes
+  private val categoryRoutes = new CategoryRoutes[F](algebras.categories).routes
+  private val itemRoutes     = new ItemRoutes[F](algebras.items).routes
 
   // Admin routes
-  private val adminBrandRoutes    = new AdminBrandRoutes[F](repos.brands).routes(adminMiddleware)
-  private val adminCategoryRoutes = new AdminCategoryRoutes[F](repos.categories).routes(adminMiddleware)
-  private val adminItemRoutes     = new AdminItemRoutes[F](repos.items).routes(adminMiddleware)
+  private val adminBrandRoutes    = new AdminBrandRoutes[F](algebras.brands).routes(adminMiddleware)
+  private val adminCategoryRoutes = new AdminCategoryRoutes[F](algebras.categories).routes(adminMiddleware)
+  private val adminItemRoutes     = new AdminItemRoutes[F](algebras.items).routes(adminMiddleware)
 
   // Combining all the http routes
   private val openRoutes: HttpRoutes[F] =

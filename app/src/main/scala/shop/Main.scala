@@ -18,10 +18,10 @@ object Main extends IOApp {
         AppResources.make[IO](cfg).use { res =>
           for {
             security <- Security.make[IO](cfg, res.psql, res.redis)
-            repos <- Repositories.make[IO](res.redis, res.psql, cfg.cartExpiration)
+            algebras <- Algebras.make[IO](res.redis, res.psql, cfg.cartExpiration)
             clients <- HttpClients.make[IO](cfg.paymentConfig, res.client)
-            programs <- Programs.make[IO](cfg.checkoutConfig, repos, clients)
-            api <- HttpApi.make[IO](repos, programs, security)
+            programs <- Programs.make[IO](cfg.checkoutConfig, algebras, clients)
+            api <- HttpApi.make[IO](algebras, programs, security)
             _ <- BlazeServerBuilder[IO]
                   .bindHttp(8080, "localhost")
                   .withHttpApp(api.httpApp)

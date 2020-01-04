@@ -10,12 +10,12 @@ import shop.adapter.persistence._
 import shop.infrastructure.config.data.ShoppingCartExpiration
 import skunk._
 
-object Repositories {
+object Algebras {
   def make[F[_]: Concurrent: Parallel: Timer](
       redis: RedisCommands[F, String, String],
       sessionPool: Resource[F, Session[F]],
       cartExpiration: ShoppingCartExpiration
-  ): F[Repositories[F]] =
+  ): F[Algebras[F]] =
     for {
       brands <- LiveBrands.make[F](sessionPool)
       categories <- LiveCategories.make[F](sessionPool)
@@ -23,11 +23,11 @@ object Repositories {
       cart <- LiveShoppingCart.make[F](items, redis, cartExpiration)
       orders <- LiveOrders.make[F](sessionPool)
       health <- LiveHealthCheck.make[F](sessionPool, redis)
-    } yield new Repositories(cart, brands, categories, items, orders, health)
+    } yield new Algebras(cart, brands, categories, items, orders, health)
 
 }
 
-final class Repositories[F[_]] private (
+final class Algebras[F[_]] private (
     val cart: ShoppingCart[F],
     val brands: Brands[F],
     val categories: Categories[F],

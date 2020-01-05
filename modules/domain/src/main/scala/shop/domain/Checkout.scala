@@ -16,10 +16,16 @@ object Checkout {
   type CardExpirationPred = String Refined (Size[4] And ValidInt)
   type CardCCVPred        = Int Refined Size[3]
 
-  @newtype case class CardName(value: CardNamePred)
-  @newtype case class CardNumber(value: CardNumberPred)
-  @newtype case class CardExpiration(value: CardExpirationPred)
-  @newtype case class CardCCV(value: CardCCVPred)
+  // TODO codeのエラーをどうにかする
+  @newtype case class CardName(value: String)
+  @newtype case class CardNumber(value: Long)
+  @newtype case class CardExpiration(value: String)
+  @newtype case class CardCCV(value: Int)
+
+//  @newtype case class CardName(value: CardNamePred)
+//  @newtype case class CardNumber(value: CardNumberPred)
+//  @newtype case class CardExpiration(value: CardExpirationPred)
+//  @newtype case class CardCCV(value: CardCCVPred)
 
   case class Card(
       name: CardName,

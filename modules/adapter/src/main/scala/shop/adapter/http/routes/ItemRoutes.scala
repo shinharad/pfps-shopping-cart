@@ -5,6 +5,7 @@ import org.http4s._
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
 import shop.adapter.http.codecs._
+import shop.adapter.http.param._
 import shop.adapter.http.request.brand.BrandParam
 import shop.domain.Items
 

@@ -43,5 +43,3 @@ trait UnderlyingCodecs extends NewtypeCodecs {
   implicit val userEncoder: Encoder[User] = deriveEncoder[User]
 
 }
-
-object UnderlyingCodecs extends UnderlyingCodecs

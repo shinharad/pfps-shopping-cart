@@ -12,7 +12,8 @@ import org.http4s.server.Router
 import pdi.jwt.JwtClaim
 import shop.adapter.http.routes._
 import shop.adapter.http.routes.admin._
-import shop.adapter.http.routes.auth.{ LoginRoutes, LogoutRoutes, UserRoutes }
+import shop.adapter.http.routes.auth._
+import shop.adapter.http.routes.secured._
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
@@ -34,7 +35,7 @@ object HttpApi {
 
 final class HttpApi[F[_]: Concurrent: Timer] private (
     algebras: Algebras[F],
-    @annotation.unused programs: Programs[F], // TODO
+    programs: Programs[F],
     security: Security[F]
 ) {
 
@@ -57,6 +58,11 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
   private val categoryRoutes = new CategoryRoutes[F](algebras.categories).routes
   private val itemRoutes     = new ItemRoutes[F](algebras.items).routes
 
+  // Secured routes
+  private val cartRoutes     = new CartRoutes[F](algebras.cart).routes(usersMiddleware)
+  private val checkoutRoutes = new CheckoutRoutes[F](programs.checkout).routes(usersMiddleware)
+  private val orderRoutes    = new OrderRoutes[F](algebras.orders).routes(usersMiddleware)
+
   // Admin routes
   private val adminBrandRoutes    = new AdminBrandRoutes[F](algebras.brands).routes(adminMiddleware)
   private val adminCategoryRoutes = new AdminCategoryRoutes[F](algebras.categories).routes(adminMiddleware)
@@ -67,14 +73,14 @@ final class HttpApi[F[_]: Concurrent: Timer] private (
     healthRoutes <+> brandRoutes <+> categoryRoutes <+> itemRoutes <+>
         loginRoutes <+> userRoutes
 
-  private val signedInRoutes: HttpRoutes[F] =
-    logoutRoutes
+  private val securedRoutes: HttpRoutes[F] =
+    logoutRoutes <+> cartRoutes <+> checkoutRoutes <+> orderRoutes
 
   private val adminRoutes: HttpRoutes[F] =
     adminBrandRoutes <+> adminCategoryRoutes <+> adminItemRoutes
 
   private val routes: HttpRoutes[F] = Router(
-    version.v1 -> (openRoutes <+> signedInRoutes),
+    version.v1 -> (openRoutes <+> securedRoutes),
     version.v1 + "/admin" -> adminRoutes
   )
 

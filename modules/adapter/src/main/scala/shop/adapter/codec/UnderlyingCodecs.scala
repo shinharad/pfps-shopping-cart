@@ -2,19 +2,19 @@ package shop.adapter.codec
 
 import io.circe._
 import io.circe.generic.semiauto._
+import shop.domain.Checkout.Card
 import shop.domain.Brands._
 import shop.domain.Categories.Category
-//import shop.domain.Checkout.Card
 import shop.domain.Items.Item
 import shop.domain.Orders.Order
 import shop.domain.ShoppingCart._
 import shop.domain.Users.User
-//import shop.infrastructure.refined._
 import squants.market._
 
 trait UnderlyingCodecs extends NewtypeCodecs {
 
   // ----- Domain codecs -----
+
   implicit val brandDecoder: Decoder[Brand] = deriveDecoder[Brand]
   implicit val brandEncoder: Encoder[Brand] = deriveEncoder[Brand]
 
@@ -34,7 +34,7 @@ trait UnderlyingCodecs extends NewtypeCodecs {
 
   implicit val orderEncoder: Encoder[Order] = deriveEncoder[Order]
 
-//  implicit val cardDecoder: Decoder[Card] = deriveDecoder[Card]
+  implicit val cardDecoder: Decoder[Card] = deriveDecoder[Card]
 
   implicit val cartEncoder: Encoder[Cart] = Encoder.forProduct1("items")(_.items)
   implicit val cartDecoder: Decoder[Cart] = Decoder.forProduct1("items")(Cart.apply)

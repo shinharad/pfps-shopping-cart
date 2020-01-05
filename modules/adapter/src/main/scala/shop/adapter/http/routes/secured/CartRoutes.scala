@@ -1,22 +1,17 @@
 package shop.adapter.http.routes.secured
 
 import cats.effect.Sync
+import cats.instances.list._
+import cats.syntax.apply._
+import cats.syntax.traverse._
 import org.http4s._
 import org.http4s.dsl.Http4sDsl
+import org.http4s.server._
+import shop.adapter.http.codecs._
 import shop.domain.Items.ItemId
 import shop.domain.ShoppingCart
 import shop.domain.ShoppingCart.Cart
 import shop.domain.Users.CommonUser
-//import shop.algebras.ShoppingCart
-//import shop.domain.cart.Cart
-//import shop.http.auth.users.CommonUser
-//import shop.http.json._
-import cats.instances.list._
-import cats.syntax.traverse._
-import cats.syntax.apply._
-import org.http4s.server._
-import shop.adapter.http.codecs._
-//import shop.domain.item.ItemId
 
 final class CartRoutes[F[_]: Sync](
     shoppingCart: ShoppingCart[F]

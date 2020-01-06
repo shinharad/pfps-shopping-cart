@@ -1,16 +1,16 @@
-package shop.support
+package shop
 
 import java.util.UUID
 
 import eu.timepit.refined.api.Refined
-import shop.domain.Categories._
-import shop.domain.Items._
-import shop.domain.ShoppingCart._
 import io.estatico.newtype.Coercible
 import io.estatico.newtype.ops._
 import org.scalacheck.Gen
 import shop.domain.Brands._
+import shop.domain.Categories._
 import shop.domain.Checkout._
+import shop.domain.Items._
+import shop.domain.ShoppingCart._
 import squants.market._
 
 object generators {

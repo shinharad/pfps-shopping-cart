@@ -72,10 +72,19 @@ lazy val app = (project in file("app"))
         )
   )
   .settings(CoreSettings.settings)
+  //  .configs(IntegrationTest)
+  //  .settings(
+  //    Defaults.itSettings
+  //  )
+  .dependsOn(adapter % "test->test;compile->compile")
+
+lazy val tests = (project in file("modules/tests"))
   .configs(IntegrationTest)
   .settings(
+    name := s"$basename-tests",
     Defaults.itSettings
   )
+  .settings(CoreSettings.settings)
   .dependsOn(adapter % "test->test;compile->compile")
 
 lazy val root = (project in file("."))
@@ -88,5 +97,6 @@ lazy val root = (project in file("."))
     domain,
     application,
     adapter,
-    app
+    app,
+    tests
   )

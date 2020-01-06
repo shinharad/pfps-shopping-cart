@@ -1,4 +1,4 @@
-package shop.suite
+package suite
 
 import cats.effect._
 import cats.effect.concurrent.Deferred

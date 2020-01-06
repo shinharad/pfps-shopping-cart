@@ -1,6 +1,6 @@
-package shop.support
+package shop
 
-import cats.effect._
+import cats.effect.IO
 import cats.effect.concurrent.Ref
 import shop.infrastructure.effect.Background
 

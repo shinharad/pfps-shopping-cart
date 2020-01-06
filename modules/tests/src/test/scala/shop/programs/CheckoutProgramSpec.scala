@@ -1,19 +1,20 @@
-package shop.application
+package shop.programs
 
 import cats.effect._
 import cats.effect.concurrent.Ref
 import cats.implicits._
 import retry.RetryPolicies._
 import retry.RetryPolicy
+import shop.application._
 import shop.domain.Checkout.Card
 import shop.domain.Items.ItemId
-import shop.domain.{ Orders, ShoppingCart }
 import shop.domain.Orders._
 import shop.domain.ShoppingCart._
 import shop.domain.Users.UserId
-import shop.support.arbitraries._
-import shop.suite.PureTestSuite
+import shop.domain._
+import shop.arbitraries._
 import squants.market._
+import suite.PureTestSuite
 
 class CheckoutProgramSpec extends PureTestSuite {
 
@@ -71,8 +72,8 @@ class CheckoutProgramSpec extends PureTestSuite {
 
   forAll { (uid: UserId, pid: PaymentId, oid: OrderId, card: Card) =>
     spec("empty cart") {
-      implicit val bg = shop.support.background.NoOp
-      import shop.support.logger.NoOp
+      implicit val bg = shop.background.NoOp
+      import shop.logger.NoOp
       new CheckoutProgram[IO](successfulClient(pid), emptyCart, successfulOrders(oid), retryPolicy)
         .checkout(uid, card)
         .attempt
@@ -86,8 +87,8 @@ class CheckoutProgramSpec extends PureTestSuite {
   forAll { (uid: UserId, oid: OrderId, ct: CartTotal, card: Card) =>
     spec("unreachable payment client") {
       Ref.of[IO, List[String]](List.empty).flatMap { logs =>
-        implicit val bg     = shop.support.background.NoOp
-        implicit val logger = shop.support.logger.acc(logs)
+        implicit val bg     = shop.background.NoOp
+        implicit val logger = shop.logger.acc(logs)
         new CheckoutProgram[IO](unreachableClient, successfulCart(ct), successfulOrders(oid), retryPolicy)
           .checkout(uid, card)
           .attempt
@@ -107,8 +108,8 @@ class CheckoutProgramSpec extends PureTestSuite {
     spec("failing payment client succeeds after one retry") {
       Ref.of[IO, List[String]](List.empty).flatMap { logs =>
         Ref.of[IO, Int](0).flatMap { ref =>
-          implicit val bg     = shop.support.background.NoOp
-          implicit val logger = shop.support.logger.acc(logs)
+          implicit val bg     = shop.background.NoOp
+          implicit val logger = shop.logger.acc(logs)
           new CheckoutProgram[IO](recoveringClient(ref, pid), successfulCart(ct), successfulOrders(oid), retryPolicy)
             .checkout(uid, card)
             .attempt
@@ -128,8 +129,8 @@ class CheckoutProgramSpec extends PureTestSuite {
     spec("cannot create order, run in the background") {
       Ref.of[IO, Int](0).flatMap { ref =>
         Ref.of[IO, List[String]](List.empty).flatMap { logs =>
-          implicit val bg     = shop.support.background.counter(ref)
-          implicit val logger = shop.support.logger.acc(logs)
+          implicit val bg     = shop.background.counter(ref)
+          implicit val logger = shop.logger.acc(logs)
           new CheckoutProgram[IO](successfulClient(pid), successfulCart(ct), failingOrders, retryPolicy)
             .checkout(uid, card)
             .attempt
@@ -155,8 +156,8 @@ class CheckoutProgramSpec extends PureTestSuite {
 
   forAll { (uid: UserId, pid: PaymentId, oid: OrderId, ct: CartTotal, card: Card) =>
     spec("failing to delete cart does not affect checkout") {
-      implicit val bg = shop.support.background.NoOp
-      import shop.support.logger.NoOp
+      implicit val bg = shop.background.NoOp
+      import shop.logger.NoOp
       new CheckoutProgram[IO](successfulClient(pid), failingCart(ct), successfulOrders(oid), retryPolicy)
         .checkout(uid, card)
         .map { id =>
@@ -167,8 +168,8 @@ class CheckoutProgramSpec extends PureTestSuite {
 
   forAll { (uid: UserId, pid: PaymentId, oid: OrderId, ct: CartTotal, card: Card) =>
     spec("successful checkout") {
-      implicit val bg = shop.support.background.NoOp
-      import shop.support.logger.NoOp
+      implicit val bg = shop.background.NoOp
+      import shop.logger.NoOp
       new CheckoutProgram[IO](successfulClient(pid), successfulCart(ct), successfulOrders(oid), retryPolicy)
         .checkout(uid, card)
         .map { id =>

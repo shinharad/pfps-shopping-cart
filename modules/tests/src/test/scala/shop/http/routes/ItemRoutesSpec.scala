@@ -1,4 +1,4 @@
-package shop.adapter.http.routes
+package shop.http.routes
 
 import cats.effect._
 import cats.implicits._
@@ -6,11 +6,12 @@ import org.http4s.Method._
 import org.http4s._
 import org.http4s.client.dsl.io._
 import shop.adapter.http.codecs._
+import shop.adapter.http.routes.ItemRoutes
 import shop.domain.Brands._
 import shop.domain.Items._
 import shop.domain._
-import shop.suite.HttpTestSuite
-import shop.support.arbitraries._
+import shop.arbitraries._
+import suite.HttpTestSuite
 
 class ItemRoutesSpec extends HttpTestSuite {
 

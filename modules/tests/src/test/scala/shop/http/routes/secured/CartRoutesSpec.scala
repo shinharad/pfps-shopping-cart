@@ -1,4 +1,4 @@
-package shop.adapter.http.routes.secured
+package shop.http.routes.secured
 
 import java.util.UUID
 
@@ -8,14 +8,15 @@ import org.http4s.Method._
 import org.http4s._
 import org.http4s.client.dsl.io._
 import org.http4s.server.AuthMiddleware
+import shop.adapter.http.codecs._
+import shop.adapter.http.routes.secured.CartRoutes
 import shop.domain.Items.ItemId
 import shop.domain.ShoppingCart
 import shop.domain.ShoppingCart._
 import shop.domain.Users._
-import shop.adapter.http.codecs._
-import shop.suite.HttpTestSuite
+import shop.arbitraries._
 import squants.market.USD
-import shop.support.arbitraries._
+import suite.HttpTestSuite
 
 class CartRoutesSpec extends HttpTestSuite {
 

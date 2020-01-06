@@ -1,4 +1,4 @@
-package shop.support
+package shop
 
 import cats.effect.IO
 import cats.effect.concurrent.Ref

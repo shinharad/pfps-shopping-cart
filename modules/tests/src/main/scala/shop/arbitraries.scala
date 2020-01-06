@@ -1,4 +1,4 @@
-package shop.support
+package shop
 
 import java.util.UUID
 
@@ -10,7 +10,7 @@ import shop.domain.Categories.Category
 import shop.domain.Checkout.Card
 import shop.domain.Items.Item
 import shop.domain.ShoppingCart._
-import shop.support.generators._
+import shop.generators._
 import squants.market.Money
 
 object arbitraries {

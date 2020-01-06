@@ -1,15 +1,16 @@
-package shop.adapter.http.routes
+package shop.http.routes
 
 import cats.effect._
 import cats.implicits._
 import org.http4s.Method._
 import org.http4s._
 import org.http4s.client.dsl.io._
+import shop.adapter.http.codecs._
+import shop.adapter.http.routes.BrandRoutes
 import shop.domain.Brands
 import shop.domain.Brands._
-import shop.adapter.http.codecs._
-import shop.suite.HttpTestSuite
-import shop.support.arbitraries._
+import suite.HttpTestSuite
+import shop.arbitraries._
 
 class BrandRoutesSpec extends HttpTestSuite {
 

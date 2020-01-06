@@ -35,24 +35,24 @@ object Dependencies {
     val catsRetry  = "com.github.cb372" %% "cats-retry"  % Versions.catsRetry
 
     // circe
-    def circe(artifact: String): ModuleID  = "io.circe" %% artifact % Versions.circe
-    val circeCore    = circe("circe-core")
-    val circeGeneric = circe("circe-generic")
-    val circeParser  = circe("circe-parser")
-    val circeRefined = circe("circe-refined")
+    def circe(artifact: String): ModuleID = "io.circe" %% artifact % Versions.circe
+    val circeCore                         = circe("circe-core")
+    val circeGeneric                      = circe("circe-generic")
+    val circeParser                       = circe("circe-parser")
+    val circeRefined                      = circe("circe-refined")
 
     // ciris
-    def ciris(artifact: String): ModuleID  = "is.cir"     %% artifact % Versions.ciris
-    val cirisCore    = ciris("ciris")
-    val cirisEnum    = ciris("ciris-enumeratum")
-    val cirisRefined = ciris("ciris-refined")
+    def ciris(artifact: String): ModuleID = "is.cir" %% artifact % Versions.ciris
+    val cirisCore                         = ciris("ciris")
+    val cirisEnum                         = ciris("ciris-enumeratum")
+    val cirisRefined                      = ciris("ciris-refined")
 
     // http4s
     def http4s(artifact: String): ModuleID = "org.http4s" %% artifact % Versions.http4s
-    val http4sDsl    = http4s("http4s-dsl")
-    val http4sServer = http4s("http4s-blaze-server")
-    val http4sClient = http4s("http4s-blaze-client")
-    val http4sCirce  = http4s("http4s-circe")
+    val http4sDsl                          = http4s("http4s-dsl")
+    val http4sServer                       = http4s("http4s-blaze-server")
+    val http4sClient                       = http4s("http4s-blaze-client")
+    val http4sCirce                        = http4s("http4s-circe")
 
     val http4sJwtAuth = "dev.profunktor" %% "http4s-jwt-auth" % Versions.http4sJwtAuth
 

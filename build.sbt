@@ -9,8 +9,8 @@ lazy val infrastructure = (project in file("modules/infrastructure"))
   .settings(
     name := s"$basename-infrastructure",
     libraryDependencies ++= Seq(
-      javaxCrypto
-    )
+          javaxCrypto
+        )
   )
   .settings(CoreSettings.settings)
 
@@ -27,8 +27,8 @@ lazy val application = (project in file("modules/application"))
   .settings(
     name := s"$basename-application",
     libraryDependencies ++= Seq(
-      catsRetry
-    )
+          catsRetry
+        )
   )
   .settings(CoreSettings.settings)
   .dependsOn(domain % "test->test;compile->compile")
@@ -38,20 +38,20 @@ lazy val adapter = (project in file("modules/adapter"))
   .settings(
     name := s"$basename-adapter",
     libraryDependencies ++= Seq(
-      circeCore,
-      circeGeneric,
-      circeParser,
-      circeRefined,
-      http4sDsl,
-      http4sServer,
-      http4sClient,
-      http4sCirce,
-      http4sJwtAuth,
-      skunkCore,
-      skunkCirce,
-      redis4catsEffects,
-      redis4catsLog4cats
-    )
+          circeCore,
+          circeGeneric,
+          circeParser,
+          circeRefined,
+          http4sDsl,
+          http4sServer,
+          http4sClient,
+          http4sCirce,
+          http4sJwtAuth,
+          skunkCore,
+          skunkCirce,
+          redis4catsEffects,
+          redis4catsLog4cats
+        )
   )
   .settings(CoreSettings.settings)
   .dependsOn(application % "test->test;compile->compile")
@@ -63,15 +63,19 @@ lazy val app = (project in file("app"))
   .settings(
     name := s"$basename-app",
     envVars in reStart := Map(
-      "SC_APP_ENV" -> "local",
-      "SC_ACCESS_TOKEN_SECRET_KEY" -> "5h0pp1ng_k4rt",
-      "SC_JWT_SECRET_KEY" -> "-*5h0pp1ng_k4rt*-",
-      "SC_JWT_CLAIM" -> "{004b4457-71c3-4439-a1b2-03820263b59c}",
-      "SC_ADMIN_USER_TOKEN" -> "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ezA0YjQ0NTctNzFjMy00NDM5LWExYjItMDM4MjAyNjNiNTl9.mMC4eiPl7huiAO3GdORwKnqJrf96xKPoojQdZtrTbP4",
-      "SC_PASSWORD_SALT" -> "06!grsnxXG0d*Pj496p6fuA*o",
-    )
+          "SC_APP_ENV" -> "local",
+          "SC_ACCESS_TOKEN_SECRET_KEY" -> "5h0pp1ng_k4rt",
+          "SC_JWT_SECRET_KEY" -> "-*5h0pp1ng_k4rt*-",
+          "SC_JWT_CLAIM" -> "{004b4457-71c3-4439-a1b2-03820263b59c}",
+          "SC_ADMIN_USER_TOKEN" -> "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ezA0YjQ0NTctNzFjMy00NDM5LWExYjItMDM4MjAyNjNiNTl9.mMC4eiPl7huiAO3GdORwKnqJrf96xKPoojQdZtrTbP4",
+          "SC_PASSWORD_SALT" -> "06!grsnxXG0d*Pj496p6fuA*o"
+        )
   )
   .settings(CoreSettings.settings)
+  .configs(IntegrationTest)
+  .settings(
+    Defaults.itSettings
+  )
   .dependsOn(adapter % "test->test;compile->compile")
 
 lazy val root = (project in file("."))
@@ -86,5 +90,3 @@ lazy val root = (project in file("."))
     adapter,
     app
   )
-
-

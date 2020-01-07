@@ -6,11 +6,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: shopping-cart
+      app: shopping-cart-app
   template:
     metadata:
       labels:
-        app: shopping-cart
+        app: shopping-cart-app
     spec:
       containers:
         - name: shopping-cart
@@ -33,3 +33,19 @@ spec:
               value: "06!grsnxXG0d*Pj496p6fuA*o"
             - name: SC_APP_ENV
               value: "dev"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopping-cart-svc
+spec:
+  type: NodePort
+  ports:
+    - name: "http-port"
+      protocol: "TCP"
+      port: 80
+      targetPort: 8080
+  selector:
+    app: shopping-cart-app
+
